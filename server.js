@@ -64,7 +64,6 @@ async function writeData(data) {
     body: JSON.stringify(data.payoutSettings)
   });
 }
-}
 function json(res, status, body, extraHeaders = {}) {
   res.writeHead(status, {
     'Content-Type': 'application/json; charset=utf-8',
