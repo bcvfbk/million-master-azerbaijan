@@ -19,14 +19,13 @@ if (fs.existsSync(ENV_FILE)) {
 }
 
 const PORT = Number(process.env.PORT || 3000);
-const DATA_DIR = path.join(ROOT, 'data');
-const DATA_FILE = path.join(DATA_DIR, 'private.json');
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const OWNER_PASSWORD = process.env.OWNER_PASSWORD || '2020202икслмилионмастераз';
 const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(48).toString('hex');
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 const loginAttempts = new Map();
 
-fs.mkdirSync(DATA_DIR, { recursive: true });
 
 function defaultData() {
   return {
@@ -37,16 +36,34 @@ function defaultData() {
     stats: { activePlan: 'Demo', totalXp: 0, completedTasks: 0, prizeWins: 0 }
   };
 }
-function readData() {
-  try {
-    if (!fs.existsSync(DATA_FILE)) writeData(defaultData());
-    return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-  } catch { return defaultData(); }
+async function readData() {
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/payout_settings?id=eq.1`, {
+    headers: {
+      apikey: SUPABASE_SERVICE_ROLE_KEY,
+      Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`
+    }
+  });
+
+  const rows = await response.json();
+
+  return {
+    payoutSettings: rows[0] || defaultData().payoutSettings,
+    stats: defaultData().stats
+  };
 }
-function writeData(data) {
-  const temp = `${DATA_FILE}.tmp`;
-  fs.writeFileSync(temp, JSON.stringify(data, null, 2), { mode: 0o600 });
-  fs.renameSync(temp, DATA_FILE);
+
+async function writeData(data) {
+  await fetch(`${SUPABASE_URL}/rest/v1/payout_settings?id=eq.1`, {
+    method: 'PATCH',
+    headers: {
+      apikey: SUPABASE_SERVICE_ROLE_KEY,
+      Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+      'Content-Type': 'application/json',
+      Prefer: 'return=minimal'
+    },
+    body: JSON.stringify(data.payoutSettings)
+  });
+}
 }
 function json(res, status, body, extraHeaders = {}) {
   res.writeHead(status, {
@@ -129,7 +146,7 @@ async function handleApi(req, res, url) {
   }
   if (req.method === 'GET' && url.pathname === '/api/owner/dashboard') {
     if (!requireOwner(req, res)) return;
-    const data = readData();
+   const data = await readData();
     return json(res, 200, { stats: data.stats, payoutSettings: data.payoutSettings });
   }
   if (req.method === 'PUT' && url.pathname === '/api/owner/payout-settings') {
@@ -147,7 +164,7 @@ async function handleApi(req, res, url) {
       taxNumber: clean(body.taxNumber),
       note: clean(body.note)
     };
-    writeData(data);
+  await writeData(data);
     return json(res, 200, { ok: true });
   }
   if (req.method === 'GET' && url.pathname === '/api/health') return json(res, 200, { ok: true });
