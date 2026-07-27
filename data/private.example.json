@@ -1,0 +1,17 @@
+{
+  "payoutSettings": {
+    "provider": "iyzico",
+    "recipientName": "",
+    "iban": "",
+    "payoutEmail": "",
+    "businessName": "Million Master",
+    "taxNumber": "",
+    "note": ""
+  },
+  "stats": {
+    "activePlan": "Demo",
+    "totalXp": 0,
+    "completedTasks": 0,
+    "prizeWins": 0
+  }
+}

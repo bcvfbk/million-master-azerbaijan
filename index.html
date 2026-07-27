@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Million Master Azerbaijan</title>
+<style>
+:root{--bg:#070b1a;--panel:rgba(18,28,66,.64);--panel2:rgba(11,18,44,.84);--blue:#4bc6ff;--violet:#9564ff;--gold:#ffc857;--text:#f7f8ff;--muted:#a8b2d7;--ok:#53e39e;--bad:#ff647d}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 15% 10%,#18275d 0,transparent 34%),radial-gradient(circle at 90% 15%,#431a70 0,transparent 30%),linear-gradient(145deg,#050816,#090e22 55%,#071326);min-height:100vh}
+button,input,select{font:inherit}.app{max-width:1400px;margin:auto;padding:18px}.glass{background:var(--panel);border:1px solid rgba(255,255,255,.11);box-shadow:0 20px 60px rgba(0,0,0,.32);backdrop-filter:blur(18px);border-radius:22px}
+header{display:flex;gap:18px;align-items:center;justify-content:space-between;padding:18px 22px;position:sticky;top:10px;z-index:20}.brand{display:flex;align-items:center;gap:12px}.logo{width:50px;height:50px;border-radius:15px;display:grid;place-items:center;font-weight:900;color:#091126;background:linear-gradient(135deg,var(--gold),#fff0a6);box-shadow:0 0 30px rgba(255,200,87,.45)}h1{font-size:clamp(18px,2.4vw,28px);margin:0}.subtitle{color:var(--muted);font-size:13px}.topstats{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.chip{padding:9px 12px;border-radius:999px;background:rgba(255,255,255,.07);font-size:13px}
+.layout{display:grid;grid-template-columns:250px 1fr;gap:18px;margin-top:18px}.sidebar{padding:14px;height:calc(100vh - 120px);position:sticky;top:98px}.nav{display:grid;gap:8px}.nav button{border:0;color:var(--text);background:transparent;text-align:left;padding:13px 14px;border-radius:14px;cursor:pointer}.nav button:hover,.nav button.active{background:linear-gradient(90deg,rgba(75,198,255,.18),rgba(149,100,255,.18));box-shadow:inset 0 0 0 1px rgba(123,184,255,.22)}
+main{min-width:0}.page{display:none}.page.active{display:block}.hero{padding:34px;min-height:330px;display:flex;align-items:center;overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:340px;height:340px;border:45px solid rgba(255,200,87,.12);border-radius:50%;right:-70px;top:-90px;box-shadow:0 0 80px rgba(75,198,255,.16)}.hero h2{font-size:clamp(32px,5vw,70px);line-height:.98;margin:0 0 16px;max-width:760px}.hero p{max-width:650px;color:var(--muted);font-size:17px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.btn{border:0;border-radius:14px;padding:13px 18px;cursor:pointer;color:#fff;background:linear-gradient(135deg,#238ac7,#7347dd);box-shadow:0 10px 30px rgba(61,120,233,.28);font-weight:700}.btn.gold{color:#17100a;background:linear-gradient(135deg,#ffbc3d,#fff09c)}.btn.ghost{background:rgba(255,255,255,.08);box-shadow:none}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}.card{padding:20px}.card h3{margin:0 0 8px}.metric{font-size:32px;font-weight:900}.muted{color:var(--muted)}.progress{height:13px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden}.progress>div{height:100%;background:linear-gradient(90deg,var(--blue),var(--violet),var(--gold));border-radius:inherit}.lesson-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.lesson{padding:18px;cursor:pointer;transition:.2s}.lesson:hover{transform:translateY(-3px);border-color:rgba(75,198,255,.4)}.lesson .row{display:flex;justify-content:space-between;gap:10px}.badge{font-size:12px;padding:6px 9px;border-radius:999px;background:rgba(255,200,87,.12);color:#ffe09b}.quiz{padding:24px}.question{font-size:clamp(21px,3vw,34px);font-weight:800;margin:18px 0 22px}.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}.answer{padding:16px;text-align:left;border:1px solid rgba(255,255,255,.13);border-radius:16px;background:rgba(255,255,255,.055);color:white;cursor:pointer;min-height:68px}.answer:hover{border-color:var(--blue);background:rgba(75,198,255,.09)}.answer.correct{background:rgba(83,227,158,.18);border-color:var(--ok)}.answer.wrong{background:rgba(255,100,125,.17);border-color:var(--bad)}.explain{margin-top:16px;padding:15px;border-left:4px solid var(--gold);background:rgba(255,200,87,.08);border-radius:10px;display:none}.money{display:grid;gap:7px}.money div{padding:8px 12px;border-radius:10px;background:rgba(255,255,255,.045);display:flex;justify-content:space-between}.money .current{background:linear-gradient(90deg,rgba(255,200,87,.3),rgba(149,100,255,.2));outline:1px solid var(--gold)}.profile-grid{display:grid;grid-template-columns:180px 1fr;gap:18px}.avatar{width:150px;height:150px;border-radius:38px;background:linear-gradient(135deg,var(--violet),var(--blue));display:grid;place-items:center;font-size:55px;font-weight:900}.field{display:grid;gap:6px;margin-bottom:12px}.field input,.field select{padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:#101735;color:#fff}.achievement{opacity:.48}.achievement.unlocked{opacity:1;outline:1px solid rgba(255,200,87,.4)}canvas{width:100%;height:240px;background:rgba(255,255,255,.025);border-radius:16px}.toast{position:fixed;right:20px;bottom:20px;padding:14px 18px;border-radius:14px;background:#171f43;border:1px solid rgba(255,255,255,.16);display:none;z-index:50}.mobilebar{display:none}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(5,minmax(190px,1fr));gap:14px;overflow-x:auto;padding-bottom:8px}
+.plan{padding:22px;min-width:190px;position:relative;overflow:hidden}
+.plan.featured{outline:2px solid var(--gold);transform:translateY(-4px)}
+.plan .price{font-size:36px;font-weight:900;margin:10px 0}.plan ul{padding-left:18px;color:var(--muted);line-height:1.8}
+.plan-tag{position:absolute;right:-34px;top:16px;transform:rotate(38deg);background:var(--gold);color:#17100a;padding:5px 38px;font-size:11px;font-weight:900}
+.coupon-box{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.coupon-box input{flex:1;min-width:220px;padding:13px;border-radius:13px;border:1px solid rgba(255,255,255,.14);background:#101735;color:#fff}
+.subscription-status{padding:16px;border-radius:16px;background:rgba(83,227,158,.08);border:1px solid rgba(83,227,158,.22);margin-bottom:16px}
+.assistant-fab{position:fixed;right:22px;bottom:84px;width:62px;height:62px;border-radius:50%;border:0;cursor:pointer;z-index:45;color:#fff;font-size:27px;background:linear-gradient(135deg,var(--violet),var(--blue));box-shadow:0 12px 40px rgba(75,198,255,.35)}
+.assistant-panel{position:fixed;right:22px;bottom:158px;width:min(390px,calc(100vw - 28px));height:520px;z-index:46;display:none;flex-direction:column;padding:14px}
+.assistant-panel.open{display:flex}.assistant-head{display:flex;justify-content:space-between;align-items:center;padding:5px 4px 12px}.assistant-messages{flex:1;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:6px}
+.msg{padding:11px 13px;border-radius:15px;max-width:86%;line-height:1.4}.msg.bot{background:rgba(75,198,255,.12);align-self:flex-start}.msg.user{background:rgba(149,100,255,.2);align-self:flex-end}
+.assistant-input{display:flex;gap:8px;margin-top:9px}.assistant-input input{flex:1;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.13);background:#101735;color:#fff}
+.locked{opacity:.55;filter:grayscale(.35)}
+
+.payment-wrap{max-width:760px;margin:auto}.payment-card{padding:26px}.pay-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.pay-field{display:grid;gap:7px}.pay-field.full{grid-column:1/-1}.pay-field input{padding:14px;border-radius:13px;border:1px solid rgba(255,255,255,.14);background:#101735;color:#fff}.pay-summary{padding:16px;border-radius:16px;background:rgba(255,200,87,.08);border:1px solid rgba(255,200,87,.22);margin-bottom:18px}.secure-note{font-size:13px;color:var(--muted);margin-top:12px}.prize-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.prize{padding:20px;text-align:center}.prize-icon{font-size:56px}.prize.locked{opacity:.45}.trial-lock{padding:30px;text-align:center}.trial-lock h2{font-size:34px}.hidden-by-trial{display:none!important}
+
+.wheel-layout{display:grid;grid-template-columns:minmax(320px,520px) 1fr;gap:24px;align-items:center}
+.wheel-wrap{position:relative;display:grid;place-items:center;min-height:520px}
+.prize-wheel{width:min(460px,88vw);aspect-ratio:1;border-radius:50%;border:12px solid rgba(255,255,255,.16);box-shadow:0 20px 70px rgba(0,0,0,.4);transition:transform 4.8s cubic-bezier(.12,.68,.12,1);background:conic-gradient(#6f4cff 0deg 30deg,#24b6ff 30deg 60deg,#ffc857 60deg 90deg,#53e39e 90deg 120deg,#ff6c91 120deg 150deg,#9c6bff 150deg 180deg,#32d3c8 180deg 210deg,#ff9b54 210deg 240deg,#5b8cff 240deg 270deg,#df65ff 270deg 300deg,#7ed957 300deg 330deg,#f4cf5d 330deg 360deg)}
+.wheel-center{position:absolute;width:92px;height:92px;border-radius:50%;display:grid;place-items:center;background:#111834;border:8px solid rgba(255,255,255,.18);font-size:34px;font-weight:900}
+.wheel-pointer{position:absolute;top:12px;z-index:3;width:0;height:0;border-left:22px solid transparent;border-right:22px solid transparent;border-top:44px solid var(--gold);filter:drop-shadow(0 6px 6px rgba(0,0,0,.35))}
+.wheel-result{padding:22px;text-align:center;margin-top:14px}.winner-pop{animation:pop .55s ease}
+@keyframes pop{0%{transform:scale(.75);opacity:.2}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+.profile-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}.profile-form .full{grid-column:1/-1}.profile-form input,.profile-form textarea{width:100%;padding:13px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:#101735;color:#fff}.profile-form textarea{min-height:90px;resize:vertical}
+.eligibility-note{padding:16px;border-radius:15px;background:rgba(255,200,87,.08);border:1px solid rgba(255,200,87,.2)}
+
+.owner-login{padding:18px;margin-top:18px}.owner-login input,.owner-panel input,.owner-panel select,.owner-panel textarea{width:100%;padding:13px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:#101735;color:#fff}
+.owner-panel{display:none;margin-top:18px}.owner-panel.open{display:block}.owner-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.owner-grid .full{grid-column:1/-1}
+.owner-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0}.owner-stat{padding:16px;text-align:center}
+.owner-warning{padding:14px;border-radius:14px;background:rgba(255,108,145,.09);border:1px solid rgba(255,108,145,.25);color:#ffd7e2}
+@media(max-width:800px){.owner-grid,.owner-stats{grid-template-columns:1fr}.owner-grid .full{grid-column:auto}}
+
+
+@media(max-width:700px){.lang-switcher select{max-width:130px}}
+
+
+.menu-language{margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
+.menu-language label{display:block;margin-bottom:8px;font-size:13px;font-weight:800;color:var(--muted)}
+.menu-language select{width:100%;padding:11px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:#101735;color:#fff;font-weight:700}
+
+@media(max-width:900px){.wheel-layout{grid-template-columns:1fr}.profile-form{grid-template-columns:1fr}.profile-form .full{grid-column:auto}}
+
+@media(max-width:900px){.prize-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.pay-grid{grid-template-columns:1fr}.pay-field.full{grid-column:auto}.prize-grid{grid-template-columns:1fr}}
+
+@media(max-width:1200px){.pricing-grid{grid-template-columns:repeat(5,220px)}}
+
+@media(max-width:900px){.layout{grid-template-columns:1fr}.sidebar{display:none}.grid{grid-template-columns:1fr 1fr}.lesson-list{grid-template-columns:1fr}.mobilebar{display:flex;position:fixed;bottom:10px;left:10px;right:10px;z-index:30;padding:8px;justify-content:space-around}.mobilebar button{border:0;background:transparent;color:white;font-size:12px}.app{padding-bottom:82px}.answers{grid-template-columns:1fr}}
+@media(max-width:560px){header{align-items:flex-start}.topstats{display:none}.grid{grid-template-columns:1fr}.hero{padding:24px}.profile-grid{grid-template-columns:1fr}.avatar{width:110px;height:110px}.quiz{padding:16px}}
+</style>
+</head>
+<body>
+
+<div class="app">
+<header class="glass">
+ <div class="brand"><div class="logo">MM</div><div><h1>Million Master Azerbaijan</h1><div class="subtitle">Интеллектуальная тренировочная платформа</div></div></div>
+ <div class="topstats"><div class="chip">Уровень <b id="topLevel">1</b></div><div class="chip">XP <b id="topXp">0</b> / 100 000</div><div class="chip">🔥 <b id="topStreak">0</b></div></div>
+</header>
+<div class="layout">
+<aside class="sidebar glass">
+ <nav class="nav" id="nav"></nav>
+ <div class="menu-language">
+  <label for="languageSelect" data-i18n="language_label">🌐 Язык</label>
+  <select id="languageSelect" onchange="setLanguage(this.value)" aria-label="Выбор языка">
+   <option value="ru">Русский</option>
+   <option value="az">Azərbaycan</option>
+   <option value="tr">Türkçe</option>
+   <option value="en">English</option>
+   <option value="de">Deutsch</option>
+   <option value="es">Español</option>
+  </select>
+ </div>
+</aside>
+<main>
+<section id="home" class="page active">
+ <div class="hero glass"><div><div class="badge">Путь к 100 000 XP</div><h2>Станьте мастером интеллектуальной игры</h2><p>Учитесь по темам, повторяйте ошибки, проходите экзамены и тренируйтесь на денежной лестнице из 15 вопросов.</p><div class="actions"><button class="btn gold" onclick="startGame()">▶ Играть</button><button class="btn" onclick="showPage('lessons')">Открыть уроки</button><button class="btn ghost" onclick="startSmart()">Умная тренировка</button></div></div></div>
+ <div class="grid">
+  <div class="card glass"><div class="muted">Общий прогресс</div><div class="metric" id="homeXp">0 XP</div><div class="progress"><div id="xpBar" style="width:0%"></div></div></div>
+  <div class="card glass"><div class="muted">Точность</div><div class="metric" id="accuracy">0%</div><div id="answerCount" class="muted">0 ответов</div></div>
+  <div class="card glass"><div class="muted">Сегодня</div><div class="metric" id="dailyCount">0 / 20</div><button class="btn ghost" onclick="startDaily()">Ежедневное задание</button></div>
+ </div>
+ <div class="grid">
+  <div class="card glass"><h3>Слабая тема</h3><div id="weakTopic" class="metric" style="font-size:21px">Пока нет данных</div></div>
+  <div class="card glass"><h3>Лучший результат</h3><div id="bestGame" class="metric">0 / 15</div></div>
+  <div class="card glass"><h3>База тренировки</h3><div class="metric" id="bankSize">0</div><div class="muted">вопросов и вариантов</div></div>
+ </div>
+</section>
+
+<section id="lessons" class="page"><div class="card glass"><h2>Уроки по темам</h2><p class="muted">Каждый запуск формирует тренировку из доступной базы. После завершения начисляется бонус.</p><div id="lessonList" class="lesson-list"></div></div></section>
+
+<section id="game" class="page"><div class="grid" style="grid-template-columns:1fr 280px"><div class="quiz glass"><div class="row muted" id="quizMeta"></div><div class="progress"><div id="quizProgress" style="width:0"></div></div><div id="question" class="question"></div><div id="answers" class="answers"></div><div id="explain" class="explain"></div><div class="actions"><button id="nextBtn" class="btn" style="display:none" onclick="nextQuestion()">Следующий вопрос</button><button class="btn ghost" onclick="use5050()">50:50</button><button class="btn ghost" onclick="replaceQuestion()">Замена</button></div></div><div class="card glass"><h3>Денежная лестница</h3><div id="money" class="money"></div></div></div></section>
+
+<section id="exams" class="page"><div class="card glass"><h2 data-i18n="nav_exams">Экзамены</h2><div id="examGrid" class="grid"></div></div></section>
+
+<section id="stats" class="page"><div class="card glass"><h2 data-i18n="nav_stats">Статистика</h2><div class="grid"><div><div class="muted">Правильных</div><div id="statCorrect" class="metric">0</div></div><div><div class="muted">Ошибок</div><div id="statWrong" class="metric">0</div></div><div><div class="muted">Время обучения</div><div id="statTime" class="metric">0 мин</div></div></div><h3>Знания по темам</h3><div id="topicStats"></div></div></section>
+
+<section id="achievements" class="page"><div class="card glass"><h2 data-i18n="nav_achievements">Достижения</h2><div id="achievementGrid" class="grid"></div></div></section>
+
+<section id="profile" class="page"><div class="card glass"><h2>Мой профиль</h2><div class="profile-grid"><div><div class="avatar" id="avatar">M</div></div><div><div class="field"><label>Имя</label><input id="nameInput" maxlength="24"></div><div class="field"><label>Любимая тема</label><select id="favTopic"></select></div><button class="btn" onclick="saveProfile()">Сохранить профиль</button><div id="profileFacts" style="margin-top:18px"></div></div></div></div>
+ <div class="card glass" style="margin-top:18px">
+  <h3>Адрес для отправки призов</h3>
+  <p class="muted">Все поля обязательны для получения физического приза.</p>
+  <div class="profile-form">
+   <div><label>Имя и фамилия</label><input id="profileFullName" placeholder="Имя и фамилия"></div>
+   <div><label>Телефон</label><input id="profilePhone" placeholder="+90 ..."></div>
+   <div><label>Страна</label><input id="profileCountry" placeholder="Türkiye"></div>
+   <div><label>Город</label><input id="profileCity" placeholder="Ankara"></div>
+   <div><label>Почтовый индекс</label><input id="profilePostalCode" placeholder="06000"></div>
+   <div class="full"><label>Полный адрес</label><textarea id="profileAddress" placeholder="Улица, дом, квартира"></textarea></div>
+  </div>
+  <button class="btn" style="margin-top:14px" onclick="savePrizeProfile()" data-i18n="save_address">Сохранить адрес</button>
+  <div id="profileAddressStatus" class="muted" style="margin-top:10px"></div>
+ </div>
+
+ <div class="owner-login glass">
+  <h3 data-i18n="owner_access">Доступ владельца</h3>
+  <p class="muted">Введите код владельца, чтобы открыть административные настройки.</p>
+  <div class="coupon-box">
+   <input id="ownerCodeInput" type="password" placeholder="Код владельца">
+   <button class="btn" onclick="unlockOwnerPanel()" data-i18n="open_panel">Открыть панель</button>
+  </div>
+  <div id="ownerCodeStatus" class="muted" style="margin-top:10px"></div>
+ </div>
+
+ <div id="ownerPanel" class="owner-panel glass">
+  <h2 data-i18n="owner_panel">Панель владельца</h2>
+  <div class="owner-warning">🔐 Панель защищена серверной авторизацией. Секретный код не хранится в HTML, а настройки выплат сохраняются на сервере.</div>
+  <div class="owner-stats">
+   <div class="owner-stat glass"><div class="muted">Текущий тариф клиента</div><div id="ownerClientPlan" class="metric">—</div></div>
+   <div class="owner-stat glass"><div class="muted">XP клиента</div><div id="ownerClientXp" class="metric">0</div></div>
+   <div class="owner-stat glass"><div class="muted">Заданий</div><div id="ownerTasks" class="metric">0</div></div>
+   <div class="owner-stat glass"><div class="muted">Выигрышей</div><div id="ownerWins" class="metric">0</div></div>
+  </div>
+
+  <h3>Куда должны поступать выплаты</h3>
+  <p class="muted">Для реальных выплат указывается банковский счёт или аккаунт платёжного провайдера. Номер банковской карты здесь не хранится.</p>
+  <div class="owner-grid">
+   <div><label>Платёжный провайдер</label><select id="ownerProvider"><option>iyzico</option><option>Stripe</option><option>PayPal</option><option>Paddle</option><option>Банковский эквайринг</option></select></div>
+   <div><label>Имя получателя</label><input id="ownerRecipientName" placeholder="Имя владельца бизнеса"></div>
+   <div><label>IBAN / банковский счёт</label><input id="ownerIban" placeholder="TR00 0000 0000 0000 0000 0000 00"></div>
+   <div><label>Email платёжного аккаунта</label><input id="ownerPayoutEmail" type="email" placeholder="owner@example.com"></div>
+   <div><label>Название компании</label><input id="ownerBusinessName" placeholder="Million Master"></div>
+   <div><label>Налоговый номер</label><input id="ownerTaxNumber" placeholder="Необязательно для демо"></div>
+   <div class="full"><label>Примечание по выплатам</label><textarea id="ownerPayoutNote" placeholder="Например: выплаты раз в неделю"></textarea></div>
+  </div>
+  <div class="actions">
+   <button class="btn gold" onclick="saveOwnerSettings()" data-i18n="save_payout">Сохранить настройки выплат</button>
+   <button class="btn ghost" onclick="lockOwnerPanel()" data-i18n="close_panel">Закрыть панель</button>
+  </div>
+  <div id="ownerSaveStatus" class="muted"></div>
+ </div>
+</section>
+
+
+
+<section id="payment" class="page">
+ <div class="payment-wrap">
+  <div class="payment-card glass">
+   <h2 data-i18n="payment_title">Оформление подписки</h2>
+   <div id="paymentSummary" class="pay-summary"></div>
+   <div class="pay-grid">
+    <div class="pay-field full"><label>Имя владельца карты</label><input id="cardName" autocomplete="cc-name" placeholder="AD SOYAD"></div>
+    <div class="pay-field full"><label>Номер карты</label><input id="cardNumber" inputmode="numeric" maxlength="19" autocomplete="cc-number" placeholder="0000 0000 0000 0000" oninput="formatCard(this)"></div>
+    <div class="pay-field"><label>Срок действия</label><input id="cardExpiry" maxlength="5" placeholder="MM/YY" oninput="formatExpiry(this)"></div>
+    <div class="pay-field"><label>CVV</label><input id="cardCvv" inputmode="numeric" maxlength="4" type="password" placeholder="•••"></div>
+    <div class="pay-field full"><label>Email для чека</label><input id="billingEmail" type="email" placeholder="name@example.com"></div>
+   </div>
+   <div class="actions"><button class="btn gold" onclick="completeDemoPayment()" data-i18n="confirm_subscription">Подтвердить подписку</button><button class="btn ghost" onclick="showPage('pricing')" data-i18n="back">Назад</button></div>
+   <div class="secure-note">🔒 Демонстрационный экран. Полные реквизиты карты не сохраняются и никуда не отправляются. Для реальных платежей нужен сертифицированный платёжный провайдер.</div>
+  </div>
+ </div>
+</section>
+
+
+<section id="wheel" class="page">
+ <div class="card glass">
+  <h2 data-i18n="wheel_title">Случайная вертушка призов</h2>
+  <p class="muted">Доступна только для тарифов Премиум, Plus и Pro. Для получения физического приза профиль и адрес доставки должны быть заполнены.</p>
+  <div class="wheel-layout">
+   <div>
+    <div class="wheel-wrap">
+     <div class="wheel-pointer"></div>
+     <div id="prizeWheel" class="prize-wheel"></div>
+     <div class="wheel-center">🎁</div>
+    </div>
+    <button id="spinButton" class="btn gold" style="width:100%" onclick="spinPrizeWheel()" data-i18n="spin_button">Вращать колесо</button>
+   </div>
+   <div>
+    <div id="wheelEligibility" class="eligibility-note"></div>
+    <div id="wheelResult" class="wheel-result glass"><div class="metric">🎡</div><h3>Приз появится здесь</h3><p class="muted">Нажмите кнопку вращения.</p></div>
+    <div class="card glass" style="margin-top:14px">
+     <h3>Условия</h3>
+     <p class="muted">В этой локальной версии колесо является демонстрационным. Для реальной выдачи призов нужны официальные правила, серверная фиксация результата, защита от повторного вращения и проверка доступности доставки.</p>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="prizes" class="page">
+ <div class="card glass">
+  <h2>Призы Million Master</h2>
+  <p class="muted">Призы открываются за активность, XP и выполнение заданий. Это демонстрационная система наград; реальные условия розыгрыша должны быть отдельно опубликованы в правилах.</p>
+  <div id="prizeGrid" class="prize-grid"></div>
+ </div>
+</section>
+
+<section id="trialExpired" class="page">
+ <div class="trial-lock glass">
+  <div class="metric">⏳</div>
+  <h2>Бесплатный период завершён</h2>
+  <p class="muted">7-дневный бесплатный доступ закончился. Чтобы продолжить обучение, выберите платный тариф.</p>
+  <button class="btn gold" onclick="showPage('pricing')" data-i18n="choose_plan">Выбрать тариф</button>
+ </div>
+</section>
+
+<section id="pricing" class="page">
+ <div class="card glass">
+  <h2>Тарифы Million Master</h2>
+  <p class="muted">У каждого платного тарифа первый месяц бесплатно. Дополнительно доступен бесплатный пробный период на 7 дней.</p>
+  <div id="subscriptionStatus" class="subscription-status"></div>
+  <div class="pricing-grid">
+   <div id="freePlanCard" class="plan glass"><h3>Бесплатный</h3><div class="price">$0</div><div class="muted">Навсегда</div><ul><li>Базовые уроки</li><li>10 вопросов в день</li><li>Локальное сохранение</li></ul><button class="btn ghost" onclick="choosePlan('Бесплатный',0)">Выбрать</button></div>
+   <div class="plan glass"><h3>Обычный</h3><div class="price">$5</div><div class="muted">в месяц</div><ul><li>Все основные темы</li><li>Ежедневные задания</li><li>Базовая статистика</li></ul><button class="btn" onclick="choosePlan('Обычный',5)">1 месяц бесплатно</button></div>
+   <div class="plan glass"><h3>Премиум</h3><div class="price">$10</div><div class="muted">в месяц</div><ul><li>Все уроки</li><li>Умное повторение</li><li data-i18n="nav_exams">Экзамены</li></ul><button class="btn" onclick="choosePlan('Премиум',10)">1 месяц бесплатно</button></div>
+   <div class="plan glass featured"><div class="plan-tag">ПОПУЛЯРНЫЙ</div><h3>Plus</h3><div class="price">$20</div><div class="muted">в месяц</div><ul><li>Полная статистика</li><li>Помощник</li><li>Сложные экзамены</li><li>Приоритетные задания</li></ul><button class="btn gold" onclick="choosePlan('Plus',20)">1 месяц бесплатно</button></div>
+   <div class="plan glass"><h3>Pro</h3><div class="price">$50</div><div class="muted">в месяц</div><ul><li>Все возможности</li><li>Без ограничений</li><li>Персональная программа</li><li>Расширенный помощник</li></ul><button class="btn" onclick="choosePlan('Pro',50)">1 месяц бесплатно</button></div>
+  </div>
+  <div class="card glass" style="margin-top:18px">
+   <h3>Купон на скидку 50%</h3>
+   <p class="muted">Купон <b>XMillionMaster20200</b> открывается после выполнения 100 заданий. В этой локальной версии покупка является демонстрационной и не списывает деньги.</p>
+   <div id="couponProgress"></div>
+   <div class="coupon-box"><input id="couponInput" placeholder="Введите купон"><button class="btn" onclick="applyCoupon()">Применить купон</button></div>
+   <div id="couponResult" class="muted" style="margin-top:10px"></div>
+  </div>
+ </div>
+</section>
+
+<section id="settings" class="page"><div class="card glass"><h2>Настройки</h2><div class="field"><label>Размер шрифта</label><select id="fontSize" onchange="applySettings()"><option value="16">Обычный</option><option value="18">Крупный</option><option value="20">Очень крупный</option></select></div><div class="field"><label><input type="checkbox" id="animations" checked onchange="applySettings()"> Плавные анимации</label></div><button class="btn ghost" onclick="resetProgress()">Сбросить прогресс</button></div>
+ <div class="card glass" style="margin-top:16px">
+  <h3 data-i18n="language_label">🌐 Язык</h3>
+  <select id="settingsLanguageSelect" onchange="setLanguage(this.value);document.getElementById('languageSelect').value=this.value" style="width:100%;padding:13px;border-radius:12px;background:#101735;color:#fff;border:1px solid rgba(255,255,255,.14)">
+   <option value="ru">Русский</option><option value="az">Azərbaycan</option><option value="tr">Türkçe</option>
+   <option value="en">English</option><option value="de">Deutsch</option><option value="es">Español</option>
+  </select>
+ </div>
+</section>
+</main>
+</div>
+</div>
+<div class="mobilebar glass">
+ <button onclick="showPage('home')">🏠<br><span data-i18n="nav_home">Главная</span></button>
+ <button onclick="showPage('lessons')">📚<br><span data-i18n="nav_lessons">Уроки</span></button>
+ <button onclick="startGame()">🎮<br><span data-i18n="nav_game">Игра</span></button>
+ <button onclick="showPage('stats')">📊<br><span data-i18n="nav_stats">Статистика</span></button>
+ <button onclick="showPage('profile')">👤<br><span data-i18n="nav_profile">Профиль</span></button>
+</div>
+
+<button class="assistant-fab" onclick="toggleAssistant()" title="Помощник">🤖</button>
+<div id="assistantPanel" class="assistant-panel glass">
+ <div class="assistant-head"><div><b>Million Assistant</b><div class="muted" style="font-size:12px">Помощник по подготовке</div></div><button class="btn ghost" onclick="toggleAssistant()">✕</button></div>
+ <div id="assistantMessages" class="assistant-messages">
+  <div class="msg bot">Здравствуйте! Я помогу выбрать тему, объясню ошибку, предложу тренировку или покажу слабые места.</div>
+ </div>
+ <div class="assistant-input"><input id="assistantInput" placeholder="Например: что мне учить?" onkeydown="if(event.key==='Enter')sendAssistant()"><button class="btn" onclick="sendAssistant()">➤</button></div>
+</div>
+<div id="toast" class="toast"></div>
+<script>
+const QUESTIONS = [{"q": "Какой город является столицей Азербайджана?", "o": ["Гянджа", "Баку", "Шеки", "Ленкорань"], "a": 1, "e": "Столица и крупнейший город Азербайджана — Баку.", "c": "География Азербайджана", "d": 1, "id": "q0001", "tags": ["география азербайджана"]}, {"q": "Тренировочный вариант: Какой город является столицей Азербайджана?", "o": ["Баку", "Гянджа", "Шеки", "Ленкорань"], "a": 0, "e": "Столица и крупнейший город Азербайджана — Баку.", "c": "География Азербайджана", "d": 1, "id": "v0001", "tags": ["география азербайджана", "повторение"]}, {"q": "Как называется крупнейшее озеро мира, омывающее берега Азербайджана?", "o": ["Чёрное море", "Аральское море", "Каспийское море", "Мёртвое море"], "a": 2, "e": "Каспийское море считается крупнейшим замкнутым водоёмом Земли.", "c": "География Азербайджана", "d": 1, "id": "q0002", "tags": ["география азербайджана"]}, {"q": "Тренировочный вариант: Как называется крупнейшее озеро мира, омывающее берега Азербайджана?", "o": ["Чёрное море", "Каспийское море", "Аральское море", "Мёртвое море"], "a": 1, "e": "Каспийское море считается крупнейшим замкнутым водоёмом Земли.", "c": "География Азербайджана", "d": 1, "id": "v0002", "tags": ["география азербайджана", "повторение"]}, {"q": "Какая река образует часть границы Азербайджана с Ираном?", "o": ["Кура", "Араз", "Самур", "Тертер"], "a": 1, "e": "Река Араз проходит вдоль значительной части южной границы страны.", "c": "География Азербайджана", "d": 2, "id": "q0003", "tags": ["география азербайджана"]}, {"q": "Тренировочный вариант: Какая река образует часть границы Азербайджана с Ираном?", "o": ["Араз", "Тертер", "Кура", "Самур"], "a": 0, "e": "Река Араз проходит вдоль значительной части южной границы страны.", "c": "География Азербайджана", "d": 2, "id": "v0003", "tags": ["география азербайджана", "повторение"]}, {"q": "Какой город Азербайджана известен Дворцом шекинских ханов?", "o": ["Шеки", "Сумгаит", "Ширван", "Мингечевир"], "a": 0, "e": "Дворец шекинских ханов находится в городе Шеки.", "c": "История Азербайджана", "d": 1, "id": "q0004", "tags": ["история азербайджана"]}, {"q": "Тренировочный вариант: Какой город Азербайджана известен Дворцом шекинских ханов?", "o": ["Сумгаит", "Шеки", "Ширван", "Мингечевир"], "a": 1, "e": "Дворец шекинских ханов находится в городе Шеки.", "c": "История Азербайджана", "d": 1, "id": "v0004", "tags": ["история азербайджана", "повторение"]}, {"q": "Как называлась первая светская демократическая республика мусульманского Востока, провозглашённая в 1918 году?", "o": ["Азербайджанская Демократическая Республика", "Бакинская коммуна", "Ширванское ханство", "Кавказская федерация"], "a": 0, "e": "Азербайджанская Демократическая Республика была провозглашена 28 мая 1918 года.", "c": "История Азербайджана", "d": 2, "id": "q0005", "tags": ["история азербайджана"]}, {"q": "Тренировочный вариант: Как называлась первая светская демократическая республика мусульманского Востока, провозглашённая в 1918 году?", "o": ["Бакинская коммуна", "Азербайджанская Демократическая Республика", "Кавказская федерация", "Ширванское ханство"], "a": 1, "e": "Азербайджанская Демократическая Республика была провозглашена 28 мая 1918 года.", "c": "История Азербайджана", "d": 2, "id": "v0005", "tags": ["история азербайджана", "повторение"]}, {"q": "Кто является автором поэмы «Лейли и Меджнун» в азербайджанской литературной традиции XVI века?", "o": ["Физули", "Низами", "Сабир", "Вагиф"], "a": 0, "e": "Мухаммед Физули создал знаменитую поэму «Лейли и Меджнун».", "c": "Азербайджанская литература", "d": 2, "id": "q0006", "tags": ["азербайджанская литература"]}, {"q": "Тренировочный вариант: Кто является автором поэмы «Лейли и Меджнун» в азербайджанской литературной традиции XVI века?", "o": ["Физули", "Сабир", "Низами", "Вагиф"], "a": 0, "e": "Мухаммед Физули создал знаменитую поэму «Лейли и Меджнун».", "c": "Азербайджанская литература", "d": 2, "id": "v0006", "tags": ["азербайджанская литература", "повторение"]}, {"q": "В каком городе родился Низами Гянджеви?", "o": ["Баку", "Шуша", "Гянджа", "Шамаха"], "a": 2, "e": "Низами Гянджеви родился и жил в Гяндже.", "c": "Азербайджанская литература", "d": 1, "id": "q0007", "tags": ["азербайджанская литература"]}, {"q": "Тренировочный вариант: В каком городе родился Низами Гянджеви?", "o": ["Шамаха", "Гянджа", "Шуша", "Баку"], "a": 1, "e": "Низами Гянджеви родился и жил в Гяндже.", "c": "Азербайджанская литература", "d": 1, "id": "v0007", "tags": ["азербайджанская литература", "повторение"]}, {"q": "Как называется традиционный азербайджанский музыкальный жанр с развитой импровизацией?", "o": ["Фламенко", "Мугам", "Регтайм", "Шансон"], "a": 1, "e": "Мугам — одна из важнейших форм традиционной азербайджанской музыки.", "c": "Музыка", "d": 1, "id": "q0008", "tags": ["музыка"]}, {"q": "Тренировочный вариант: Как называется традиционный азербайджанский музыкальный жанр с развитой импровизацией?", "o": ["Шансон", "Мугам", "Фламенко", "Регтайм"], "a": 1, "e": "Мугам — одна из важнейших форм традиционной азербайджанской музыки.", "c": "Музыка", "d": 1, "id": "v0008", "tags": ["музыка", "повторение"]}, {"q": "Какой музыкальный инструмент часто используется в исполнении мугама?", "o": ["Тар", "Волынка", "Банджо", "Клавесин"], "a": 0, "e": "Тар — один из основных инструментов азербайджанской традиционной музыки.", "c": "Музыка", "d": 2, "id": "q0009", "tags": ["музыка"]}, {"q": "Тренировочный вариант: Какой музыкальный инструмент часто используется в исполнении мугама?", "o": ["Банджо", "Клавесин", "Волынка", "Тар"], "a": 3, "e": "Тар — один из основных инструментов азербайджанской традиционной музыки.", "c": "Музыка", "d": 2, "id": "v0009", "tags": ["музыка", "повторение"]}, {"q": "Кто написал оперу «Кёроглы»?", "o": ["Узеир Гаджибейли", "Кара Караев", "Фикрет Амиров", "Муслим Магомаев"], "a": 0, "e": "Оперу «Кёроглы» написал Узеир Гаджибейли.", "c": "Опера", "d": 2, "id": "q0010", "tags": ["опера"]}, {"q": "Тренировочный вариант: Кто написал оперу «Кёроглы»?", "o": ["Фикрет Амиров", "Муслим Магомаев", "Кара Караев", "Узеир Гаджибейли"], "a": 3, "e": "Оперу «Кёроглы» написал Узеир Гаджибейли.", "c": "Опера", "d": 2, "id": "v0010", "tags": ["опера", "повторение"]}, {"q": "Какой праздник отмечается 20–21 марта и связан с приходом весны?", "o": ["Новруз", "Рамазан", "Хыдыр Наби", "День граната"], "a": 0, "e": "Новруз символизирует весеннее обновление и новый год по древней традиции.", "c": "Праздники", "d": 1, "id": "q0011", "tags": ["праздники"]}, {"q": "Тренировочный вариант: Какой праздник отмечается 20–21 марта и связан с приходом весны?", "o": ["Новруз", "Рамазан", "Хыдыр Наби", "День граната"], "a": 0, "e": "Новруз символизирует весеннее обновление и новый год по древней традиции.", "c": "Праздники", "d": 1, "id": "v0011", "tags": ["праздники", "повторение"]}, {"q": "Какой город считается одним из главных центров азербайджанского ковроткачества?", "o": ["Губа", "Нафталан", "Сальян", "Астара"], "a": 0, "e": "Губинская школа ковроткачества широко известна своими орнаментами.", "c": "Искусство", "d": 2, "id": "q0012", "tags": ["искусство"]}, {"q": "Тренировочный вариант: Какой город считается одним из главных центров азербайджанского ковроткачества?", "o": ["Нафталан", "Губа", "Сальян", "Астара"], "a": 1, "e": "Губинская школа ковроткачества широко известна своими орнаментами.", "c": "Искусство", "d": 2, "id": "v0012", "tags": ["искусство", "повторение"]}, {"q": "Какая цивилизация построила Мачу-Пикчу?", "o": ["Майя", "Инки", "Ацтеки", "Финикийцы"], "a": 1, "e": "Мачу-Пикчу был создан цивилизацией инков.", "c": "История мира", "d": 1, "id": "q0013", "tags": ["история мира"]}, {"q": "Тренировочный вариант: Какая цивилизация построила Мачу-Пикчу?", "o": ["Майя", "Инки", "Ацтеки", "Финикийцы"], "a": 1, "e": "Мачу-Пикчу был создан цивилизацией инков.", "c": "История мира", "d": 1, "id": "v0013", "tags": ["история мира", "повторение"]}, {"q": "В каком году началась Французская революция?", "o": ["1776", "1789", "1812", "1848"], "a": 1, "e": "Французская революция началась в 1789 году.", "c": "История мира", "d": 2, "id": "q0014", "tags": ["история мира"]}, {"q": "Тренировочный вариант: В каком году началась Французская революция?", "o": ["1848", "1789", "1776", "1812"], "a": 1, "e": "Французская революция началась в 1789 году.", "c": "История мира", "d": 2, "id": "v0014", "tags": ["история мира", "повторение"]}, {"q": "Кто был первым римским императором?", "o": ["Юлий Цезарь", "Август", "Нерон", "Траян"], "a": 1, "e": "Октавиан Август считается первым римским императором.", "c": "История мира", "d": 2, "id": "q0015", "tags": ["история мира"]}, {"q": "Тренировочный вариант: Кто был первым римским императором?", "o": ["Август", "Нерон", "Юлий Цезарь", "Траян"], "a": 0, "e": "Октавиан Август считается первым римским императором.", "c": "История мира", "d": 2, "id": "v0015", "tags": ["история мира", "повторение"]}, {"q": "Какой документ 1215 года ограничил власть английского короля?", "o": ["Билль о правах", "Великая хартия вольностей", "Кодекс Наполеона", "Акт о престолонаследии"], "a": 1, "e": "Великая хартия вольностей была подписана в 1215 году.", "c": "История мира", "d": 3, "id": "q0016", "tags": ["история мира"]}, {"q": "Тренировочный вариант: Какой документ 1215 года ограничил власть английского короля?", "o": ["Кодекс Наполеона", "Акт о престолонаследии", "Билль о правах", "Великая хартия вольностей"], "a": 3, "e": "Великая хартия вольностей была подписана в 1215 году.", "c": "История мира", "d": 3, "id": "v0016", "tags": ["история мира", "повторение"]}, {"q": "Какой народ создал клинопись?", "o": ["Шумеры", "Викинги", "Кельты", "Маори"], "a": 0, "e": "Первые известные системы клинописи возникли у шумеров.", "c": "История мира", "d": 2, "id": "q0017", "tags": ["история мира"]}, {"q": "Тренировочный вариант: Какой народ создал клинопись?", "o": ["Маори", "Шумеры", "Викинги", "Кельты"], "a": 1, "e": "Первые известные системы клинописи возникли у шумеров.", "c": "История мира", "d": 2, "id": "v0017", "tags": ["история мира", "повторение"]}, {"q": "Кто совершил первое кругосветное путешествие, завершённое его экспедицией?", "o": ["Колумб", "Магеллан", "Кук", "Да Гама"], "a": 1, "e": "Экспедиция Магеллана первой обогнула Землю, хотя сам Магеллан погиб в пути.", "c": "История мира", "d": 2, "id": "q0018", "tags": ["история мира"]}, {"q": "Тренировочный вариант: Кто совершил первое кругосветное путешествие, завершённое его экспедицией?", "o": ["Колумб", "Кук", "Магеллан", "Да Гама"], "a": 2, "e": "Экспедиция Магеллана первой обогнула Землю, хотя сам Магеллан погиб в пути.", "c": "История мира", "d": 2, "id": "v0018", "tags": ["история мира", "повторение"]}, {"q": "Какой океан является крупнейшим?", "o": ["Атлантический", "Индийский", "Тихий", "Северный Ледовитый"], "a": 2, "e": "Тихий океан — крупнейший по площади и объёму.", "c": "География мира", "d": 1, "id": "q0019", "tags": ["география мира"]}, {"q": "Тренировочный вариант: Какой океан является крупнейшим?", "o": ["Тихий", "Индийский", "Атлантический", "Северный Ледовитый"], "a": 0, "e": "Тихий океан — крупнейший по площади и объёму.", "c": "География мира", "d": 1, "id": "v0019", "tags": ["география мира", "повторение"]}, {"q": "Столица Австралии — это…", "o": ["Сидней", "Мельбурн", "Канберра", "Перт"], "a": 2, "e": "Столица Австралии — Канберра.", "c": "Столицы", "d": 1, "id": "q0020", "tags": ["столицы"]}, {"q": "Тренировочный вариант: Столица Австралии — это…", "o": ["Перт", "Сидней", "Мельбурн", "Канберра"], "a": 3, "e": "Столица Австралии — Канберра.", "c": "Столицы", "d": 1, "id": "v0020", "tags": ["столицы", "повторение"]}, {"q": "Какая страна имеет форму сапога?", "o": ["Греция", "Италия", "Португалия", "Хорватия"], "a": 1, "e": "Очертания Апеннинского полуострова напоминают сапог.", "c": "География мира", "d": 1, "id": "q0021", "tags": ["география мира"]}, {"q": "Тренировочный вариант: Какая страна имеет форму сапога?", "o": ["Португалия", "Хорватия", "Италия", "Греция"], "a": 2, "e": "Очертания Апеннинского полуострова напоминают сапог.", "c": "География мира", "d": 1, "id": "v0021", "tags": ["география мира", "повторение"]}, {"q": "Какая гора является высочайшей вершиной Африки?", "o": ["Кения", "Килиманджаро", "Атлас", "Эльбрус"], "a": 1, "e": "Килиманджаро — высочайшая вершина Африки.", "c": "Горы", "d": 2, "id": "q0022", "tags": ["горы"]}, {"q": "Тренировочный вариант: Какая гора является высочайшей вершиной Африки?", "o": ["Атлас", "Килиманджаро", "Кения", "Эльбрус"], "a": 1, "e": "Килиманджаро — высочайшая вершина Африки.", "c": "Горы", "d": 2, "id": "v0022", "tags": ["горы", "повторение"]}, {"q": "Какая река протекает через Будапешт?", "o": ["Рейн", "Дунай", "Сена", "Тибр"], "a": 1, "e": "Будапешт расположен на обоих берегах Дуная.", "c": "Реки", "d": 1, "id": "q0023", "tags": ["реки"]}, {"q": "Тренировочный вариант: Какая река протекает через Будапешт?", "o": ["Рейн", "Сена", "Дунай", "Тибр"], "a": 2, "e": "Будапешт расположен на обоих берегах Дуная.", "c": "Реки", "d": 1, "id": "v0023", "tags": ["реки", "повторение"]}, {"q": "Какой пролив отделяет Европу от Африки?", "o": ["Берингов", "Гибралтарский", "Малаккский", "Босфор"], "a": 1, "e": "Гибралтарский пролив соединяет Атлантику и Средиземное море.", "c": "География мира", "d": 2, "id": "q0024", "tags": ["география мира"]}, {"q": "Тренировочный вариант: Какой пролив отделяет Европу от Африки?", "o": ["Босфор", "Берингов", "Гибралтарский", "Малаккский"], "a": 2, "e": "Гибралтарский пролив соединяет Атлантику и Средиземное море.", "c": "География мира", "d": 2, "id": "v0024", "tags": ["география мира", "повторение"]}, {"q": "В какой стране находится пустыня Атакама?", "o": ["Перу", "Чили", "Мексика", "Намибия"], "a": 1, "e": "Большая часть пустыни Атакама расположена в Чили.", "c": "География мира", "d": 2, "id": "q0025", "tags": ["география мира"]}, {"q": "Тренировочный вариант: В какой стране находится пустыня Атакама?", "o": ["Мексика", "Намибия", "Чили", "Перу"], "a": 2, "e": "Большая часть пустыни Атакама расположена в Чили.", "c": "География мира", "d": 2, "id": "v0025", "tags": ["география мира", "повторение"]}, {"q": "Столица Канады — это…", "o": ["Торонто", "Ванкувер", "Оттава", "Монреаль"], "a": 2, "e": "Столица Канады — Оттава.", "c": "Столицы", "d": 1, "id": "q0026", "tags": ["столицы"]}, {"q": "Тренировочный вариант: Столица Канады — это…", "o": ["Торонто", "Монреаль", "Ванкувер", "Оттава"], "a": 3, "e": "Столица Канады — Оттава.", "c": "Столицы", "d": 1, "id": "v0026", "tags": ["столицы", "повторение"]}, {"q": "Кто написал роман «Преступление и наказание»?", "o": ["Толстой", "Достоевский", "Тургенев", "Гоголь"], "a": 1, "e": "Автор романа — Фёдор Достоевский.", "c": "Русская литература", "d": 1, "id": "q0027", "tags": ["русская литература"]}, {"q": "Тренировочный вариант: Кто написал роман «Преступление и наказание»?", "o": ["Тургенев", "Гоголь", "Достоевский", "Толстой"], "a": 2, "e": "Автор романа — Фёдор Достоевский.", "c": "Русская литература", "d": 1, "id": "v0027", "tags": ["русская литература", "повторение"]}, {"q": "Кто создал трагедию «Гамлет»?", "o": ["Шекспир", "Мольер", "Гёте", "Сервантес"], "a": 0, "e": "«Гамлет» — трагедия Уильяма Шекспира.", "c": "Мировая литература", "d": 1, "id": "q0028", "tags": ["мировая литература"]}, {"q": "Тренировочный вариант: Кто создал трагедию «Гамлет»?", "o": ["Сервантес", "Мольер", "Шекспир", "Гёте"], "a": 2, "e": "«Гамлет» — трагедия Уильяма Шекспира.", "c": "Мировая литература", "d": 1, "id": "v0028", "tags": ["мировая литература", "повторение"]}, {"q": "Кто написал «Сто лет одиночества»?", "o": ["Борхес", "Маркес", "Кортасар", "Льоса"], "a": 1, "e": "Роман написал Габриэль Гарсиа Маркес.", "c": "Мировая литература", "d": 2, "id": "q0029", "tags": ["мировая литература"]}, {"q": "Тренировочный вариант: Кто написал «Сто лет одиночества»?", "o": ["Маркес", "Кортасар", "Льоса", "Борхес"], "a": 0, "e": "Роман написал Габриэль Гарсиа Маркес.", "c": "Мировая литература", "d": 2, "id": "v0029", "tags": ["мировая литература", "повторение"]}, {"q": "Как зовут капитана подводной лодки «Наутилус»?", "o": ["Немо", "Ахав", "Грант", "Сильвер"], "a": 0, "e": "Капитан Немо — герой романов Жюля Верна.", "c": "Мировая литература", "d": 2, "id": "q0030", "tags": ["мировая литература"]}, {"q": "Тренировочный вариант: Как зовут капитана подводной лодки «Наутилус»?", "o": ["Сильвер", "Немо", "Ахав", "Грант"], "a": 1, "e": "Капитан Немо — герой романов Жюля Верна.", "c": "Мировая литература", "d": 2, "id": "v0030", "tags": ["мировая литература", "повторение"]}, {"q": "Кто автор «Божественной комедии»?", "o": ["Данте", "Петрарка", "Боккаччо", "Ариосто"], "a": 0, "e": "«Божественную комедию» написал Данте Алигьери.", "c": "Мировая литература", "d": 2, "id": "q0031", "tags": ["мировая литература"]}, {"q": "Тренировочный вариант: Кто автор «Божественной комедии»?", "o": ["Петрарка", "Ариосто", "Данте", "Боккаччо"], "a": 2, "e": "«Божественную комедию» написал Данте Алигьери.", "c": "Мировая литература", "d": 2, "id": "v0031", "tags": ["мировая литература", "повторение"]}, {"q": "Какой литературный герой сражался с ветряными мельницами?", "o": ["Фауст", "Дон Кихот", "Одиссей", "Робинзон Крузо"], "a": 1, "e": "Дон Кихот принял ветряные мельницы за великанов.", "c": "Мировая литература", "d": 1, "id": "q0032", "tags": ["мировая литература"]}, {"q": "Тренировочный вариант: Какой литературный герой сражался с ветряными мельницами?", "o": ["Фауст", "Дон Кихот", "Робинзон Крузо", "Одиссей"], "a": 1, "e": "Дон Кихот принял ветряные мельницы за великанов.", "c": "Мировая литература", "d": 1, "id": "v0032", "tags": ["мировая литература", "повторение"]}, {"q": "Какой элемент имеет химический символ O?", "o": ["Золото", "Кислород", "Осмий", "Олово"], "a": 1, "e": "O — химический символ кислорода.", "c": "Химия", "d": 1, "id": "q0033", "tags": ["химия"]}, {"q": "Тренировочный вариант: Какой элемент имеет химический символ O?", "o": ["Олово", "Осмий", "Золото", "Кислород"], "a": 3, "e": "O — химический символ кислорода.", "c": "Химия", "d": 1, "id": "v0033", "tags": ["химия", "повторение"]}, {"q": "Сколько планет в Солнечной системе?", "o": ["7", "8", "9", "10"], "a": 1, "e": "Согласно современной классификации, планет восемь.", "c": "Астрономия", "d": 1, "id": "q0034", "tags": ["астрономия"]}, {"q": "Тренировочный вариант: Сколько планет в Солнечной системе?", "o": ["7", "9", "10", "8"], "a": 3, "e": "Согласно современной классификации, планет восемь.", "c": "Астрономия", "d": 1, "id": "v0034", "tags": ["астрономия", "повторение"]}, {"q": "Какая частица имеет отрицательный электрический заряд?", "o": ["Протон", "Нейтрон", "Электрон", "Фотон"], "a": 2, "e": "Электрон несёт отрицательный элементарный заряд.", "c": "Физика", "d": 1, "id": "q0035", "tags": ["физика"]}, {"q": "Тренировочный вариант: Какая частица имеет отрицательный электрический заряд?", "o": ["Электрон", "Фотон", "Нейтрон", "Протон"], "a": 0, "e": "Электрон несёт отрицательный элементарный заряд.", "c": "Физика", "d": 1, "id": "v0035", "tags": ["физика", "повторение"]}, {"q": "Какой газ преобладает в атмосфере Земли?", "o": ["Кислород", "Азот", "Аргон", "Углекислый газ"], "a": 1, "e": "Около 78% атмосферы Земли составляет азот.", "c": "Химия", "d": 2, "id": "q0036", "tags": ["химия"]}, {"q": "Тренировочный вариант: Какой газ преобладает в атмосфере Земли?", "o": ["Кислород", "Аргон", "Углекислый газ", "Азот"], "a": 3, "e": "Около 78% атмосферы Земли составляет азот.", "c": "Химия", "d": 2, "id": "v0036", "tags": ["химия", "повторение"]}, {"q": "Как называется процесс деления клетки на две дочерние клетки?", "o": ["Фотосинтез", "Митоз", "Осмос", "Транскрипция"], "a": 1, "e": "Митоз обеспечивает образование двух генетически сходных клеток.", "c": "Биология", "d": 2, "id": "q0037", "tags": ["биология"]}, {"q": "Тренировочный вариант: Как называется процесс деления клетки на две дочерние клетки?", "o": ["Транскрипция", "Осмос", "Фотосинтез", "Митоз"], "a": 3, "e": "Митоз обеспечивает образование двух генетически сходных клеток.", "c": "Биология", "d": 2, "id": "v0037", "tags": ["биология", "повторение"]}, {"q": "Какой орган человека вырабатывает инсулин?", "o": ["Печень", "Поджелудочная железа", "Селезёнка", "Щитовидная железа"], "a": 1, "e": "Инсулин вырабатывают бета-клетки поджелудочной железы.", "c": "Биология", "d": 2, "id": "q0038", "tags": ["биология"]}, {"q": "Тренировочный вариант: Какой орган человека вырабатывает инсулин?", "o": ["Печень", "Щитовидная железа", "Селезёнка", "Поджелудочная железа"], "a": 3, "e": "Инсулин вырабатывают бета-клетки поджелудочной железы.", "c": "Биология", "d": 2, "id": "v0038", "tags": ["биология", "повторение"]}, {"q": "Что измеряется в герцах?", "o": ["Сила", "Частота", "Энергия", "Давление"], "a": 1, "e": "Герц — единица частоты, равная одному циклу в секунду.", "c": "Физика", "d": 2, "id": "q0039", "tags": ["физика"]}, {"q": "Тренировочный вариант: Что измеряется в герцах?", "o": ["Частота", "Давление", "Сила", "Энергия"], "a": 0, "e": "Герц — единица частоты, равная одному циклу в секунду.", "c": "Физика", "d": 2, "id": "v0039", "tags": ["физика", "повторение"]}, {"q": "Какая планета известна Большим красным пятном?", "o": ["Марс", "Юпитер", "Сатурн", "Нептун"], "a": 1, "e": "Большое красное пятно — гигантский атмосферный вихрь на Юпитере.", "c": "Астрономия", "d": 2, "id": "q0040", "tags": ["астрономия"]}, {"q": "Тренировочный вариант: Какая планета известна Большим красным пятном?", "o": ["Юпитер", "Марс", "Нептун", "Сатурн"], "a": 0, "e": "Большое красное пятно — гигантский атмосферный вихрь на Юпитере.", "c": "Астрономия", "d": 2, "id": "v0040", "tags": ["астрономия", "повторение"]}, {"q": "Как называется центральная часть атома?", "o": ["Орбита", "Ядро", "Ион", "Молекула"], "a": 1, "e": "В ядре находятся протоны и нейтроны.", "c": "Физика", "d": 1, "id": "q0041", "tags": ["физика"]}, {"q": "Тренировочный вариант: Как называется центральная часть атома?", "o": ["Ион", "Молекула", "Орбита", "Ядро"], "a": 3, "e": "В ядре находятся протоны и нейтроны.", "c": "Физика", "d": 1, "id": "v0041", "tags": ["физика", "повторение"]}, {"q": "Какой металл жидкий при обычной комнатной температуре?", "o": ["Ртуть", "Железо", "Медь", "Алюминий"], "a": 0, "e": "Ртуть остаётся жидкой при обычной комнатной температуре.", "c": "Химия", "d": 1, "id": "q0042", "tags": ["химия"]}, {"q": "Тренировочный вариант: Какой металл жидкий при обычной комнатной температуре?", "o": ["Медь", "Железо", "Ртуть", "Алюминий"], "a": 2, "e": "Ртуть остаётся жидкой при обычной комнатной температуре.", "c": "Химия", "d": 1, "id": "v0042", "tags": ["химия", "повторение"]}, {"q": "Чему равен квадратный корень из 144?", "o": ["10", "11", "12", "14"], "a": 2, "e": "12 × 12 = 144.", "c": "Математика", "d": 1, "id": "q0043", "tags": ["математика"]}, {"q": "Тренировочный вариант: Чему равен квадратный корень из 144?", "o": ["10", "11", "12", "14"], "a": 2, "e": "12 × 12 = 144.", "c": "Математика", "d": 1, "id": "v0043", "tags": ["математика", "повторение"]}, {"q": "Как называется многоугольник с восемью сторонами?", "o": ["Гексагон", "Октагон", "Декагон", "Пентагон"], "a": 1, "e": "Восьмиугольник называется октагоном.", "c": "Математика", "d": 1, "id": "q0044", "tags": ["математика"]}, {"q": "Тренировочный вариант: Как называется многоугольник с восемью сторонами?", "o": ["Декагон", "Пентагон", "Гексагон", "Октагон"], "a": 3, "e": "Восьмиугольник называется октагоном.", "c": "Математика", "d": 1, "id": "v0044", "tags": ["математика", "повторение"]}, {"q": "Сколько градусов составляет сумма углов треугольника в евклидовой геометрии?", "o": ["90", "180", "270", "360"], "a": 1, "e": "Сумма внутренних углов треугольника равна 180°.", "c": "Математика", "d": 1, "id": "q0045", "tags": ["математика"]}, {"q": "Тренировочный вариант: Сколько градусов составляет сумма углов треугольника в евклидовой геометрии?", "o": ["360", "90", "270", "180"], "a": 3, "e": "Сумма внутренних углов треугольника равна 180°.", "c": "Математика", "d": 1, "id": "v0045", "tags": ["математика", "повторение"]}, {"q": "Какое число является простым?", "o": ["21", "27", "29", "33"], "a": 2, "e": "29 делится только на 1 и само себя.", "c": "Математика", "d": 2, "id": "q0046", "tags": ["математика"]}, {"q": "Тренировочный вариант: Какое число является простым?", "o": ["21", "29", "33", "27"], "a": 1, "e": "29 делится только на 1 и само себя.", "c": "Математика", "d": 2, "id": "v0046", "tags": ["математика", "повторение"]}, {"q": "Если 5 машин делают 5 деталей за 5 минут, сколько деталей сделают 100 машин за 5 минут?", "o": ["20", "100", "500", "2500"], "a": 1, "e": "Каждая машина делает одну деталь за 5 минут, значит 100 машин сделают 100 деталей.", "c": "Логические задачи", "d": 2, "id": "q0047", "tags": ["логические задачи"]}, {"q": "Тренировочный вариант: Если 5 машин делают 5 деталей за 5 минут, сколько деталей сделают 100 машин за 5 минут?", "o": ["500", "20", "100", "2500"], "a": 2, "e": "Каждая машина делает одну деталь за 5 минут, значит 100 машин сделают 100 деталей.", "c": "Логические задачи", "d": 2, "id": "v0047", "tags": ["логические задачи", "повторение"]}, {"q": "Какое число продолжает ряд: 2, 6, 12, 20, 30, ?", "o": ["36", "40", "42", "44"], "a": 2, "e": "Разности: 4, 6, 8, 10, далее 12; 30 + 12 = 42.", "c": "Логические задачи", "d": 3, "id": "q0048", "tags": ["логические задачи"]}, {"q": "Тренировочный вариант: Какое число продолжает ряд: 2, 6, 12, 20, 30, ?", "o": ["44", "40", "42", "36"], "a": 2, "e": "Разности: 4, 6, 8, 10, далее 12; 30 + 12 = 42.", "c": "Логические задачи", "d": 3, "id": "v0048", "tags": ["логические задачи", "повторение"]}, {"q": "Кто написал «Лунную сонату»?", "o": ["Моцарт", "Бетховен", "Шопен", "Бах"], "a": 1, "e": "Соната №14 до-диез минор известна как «Лунная» и написана Бетховеном.", "c": "Музыка", "d": 1, "id": "q0049", "tags": ["музыка"]}, {"q": "Тренировочный вариант: Кто написал «Лунную сонату»?", "o": ["Шопен", "Бах", "Бетховен", "Моцарт"], "a": 2, "e": "Соната №14 до-диез минор известна как «Лунная» и написана Бетховеном.", "c": "Музыка", "d": 1, "id": "v0049", "tags": ["музыка", "повторение"]}, {"q": "Кто написал балет «Лебединое озеро»?", "o": ["Чайковский", "Стравинский", "Прокофьев", "Римский-Корсаков"], "a": 0, "e": "Музыку балета написал Пётр Чайковский.", "c": "Музыка", "d": 1, "id": "q0050", "tags": ["музыка"]}, {"q": "Тренировочный вариант: Кто написал балет «Лебединое озеро»?", "o": ["Римский-Корсаков", "Чайковский", "Прокофьев", "Стравинский"], "a": 1, "e": "Музыку балета написал Пётр Чайковский.", "c": "Музыка", "d": 1, "id": "v0050", "tags": ["музыка", "повторение"]}, {"q": "Кто создал картину «Звёздная ночь»?", "o": ["Моне", "Ван Гог", "Пикассо", "Дали"], "a": 1, "e": "«Звёздная ночь» — одна из самых известных работ Винсента ван Гога.", "c": "Живопись", "d": 1, "id": "q0051", "tags": ["живопись"]}, {"q": "В каком музее находится «Мона Лиза»?", "o": ["Прадо", "Лувр", "Эрмитаж", "Уффици"], "a": 1, "e": "Картина Леонардо да Винчи хранится в Лувре.", "c": "Живопись", "d": 1, "id": "q0052", "tags": ["живопись"]}, {"q": "Как называется архитектурный стиль с аркбутанами и стрельчатыми арками?", "o": ["Барокко", "Готика", "Классицизм", "Модерн"], "a": 1, "e": "Стрельчатые арки и аркбутаны характерны для готики.", "c": "Архитектура", "d": 2, "id": "q0053", "tags": ["архитектура"]}, {"q": "Кто снял фильм «Крёстный отец»?", "o": ["Скорсезе", "Коппола", "Спилберг", "Кубрик"], "a": 1, "e": "Режиссёр фильма — Фрэнсис Форд Коппола.", "c": "Кино", "d": 2, "id": "q0054", "tags": ["кино"]}, {"q": "Сколько игроков одной команды одновременно находится на поле в футболе?", "o": ["9", "10", "11", "12"], "a": 2, "e": "Команда начинает матч с 11 игроками, включая вратаря.", "c": "Футбол", "d": 1, "id": "q0055", "tags": ["футбол"]}, {"q": "Как называется ситуация в шахматах, когда королю угрожает взятие?", "o": ["Мат", "Шах", "Пат", "Рокировка"], "a": 1, "e": "Непосредственная угроза королю называется шахом.", "c": "Шахматы", "d": 1, "id": "q0056", "tags": ["шахматы"]}, {"q": "Сколько колец на олимпийском символе?", "o": ["4", "5", "6", "7"], "a": 1, "e": "Олимпийский символ состоит из пяти переплетённых колец.", "c": "Олимпиады", "d": 1, "id": "q0057", "tags": ["олимпиады"]}, {"q": "Какой теннисный турнир проводится на травяных кортах?", "o": ["Ролан Гаррос", "Уимблдон", "US Open", "Australian Open"], "a": 1, "e": "Уимблдон традиционно проводится на траве.", "c": "Спорт", "d": 2, "id": "q0058", "tags": ["спорт"]}, {"q": "В какой игре используется термин «гамбит»?", "o": ["Шахматы", "Гольф", "Регби", "Бейсбол"], "a": 0, "e": "Гамбит — дебют, где материал жертвуют ради инициативы.", "c": "Шахматы", "d": 1, "id": "q0059", "tags": ["шахматы"]}, {"q": "Что означает клетчатый флаг в автоспорте?", "o": ["Опасность", "Финиш", "Дождь", "Дисквалификация"], "a": 1, "e": "Клетчатый флаг сообщает об окончании гонки.", "c": "Формула-1", "d": 1, "id": "q0060", "tags": ["формула-1"]}, {"q": "Какое животное является крупнейшим на Земле?", "o": ["Африканский слон", "Синий кит", "Кашалот", "Китовая акула"], "a": 1, "e": "Синий кит — крупнейшее известное животное.", "c": "Животные", "d": 1, "id": "q0061", "tags": ["животные"]}, {"q": "Какая птица не умеет летать, но отлично плавает?", "o": ["Пингвин", "Сокол", "Аист", "Стриж"], "a": 0, "e": "Крылья пингвина приспособлены для плавания.", "c": "Птицы", "d": 1, "id": "q0062", "tags": ["птицы"]}, {"q": "Как называется превращение гусеницы в бабочку?", "o": ["Миграция", "Метаморфоз", "Мутация", "Регенерация"], "a": 1, "e": "Резкая смена формы тела в жизненном цикле называется метаморфозом.", "c": "Насекомые", "d": 1, "id": "q0063", "tags": ["насекомые"]}, {"q": "Какое растение является основным источником натурального каучука?", "o": ["Гевея", "Бамбук", "Кедр", "Агава"], "a": 0, "e": "Млечный сок гевеи используется для производства натурального каучука.", "c": "Растения", "d": 2, "id": "q0064", "tags": ["растения"]}, {"q": "Какое млекопитающее откладывает яйца?", "o": ["Коала", "Утконос", "Лемур", "Тапир"], "a": 1, "e": "Утконос относится к яйцекладущим млекопитающим.", "c": "Животные", "d": 2, "id": "q0065", "tags": ["животные"]}, {"q": "Какой орган растения в основном поглощает воду из почвы?", "o": ["Цветок", "Корень", "Плод", "Стебель"], "a": 1, "e": "Корневая система поглощает воду и минеральные вещества.", "c": "Растения", "d": 1, "id": "q0066", "tags": ["растения"]}, {"q": "Кто считается создателем Всемирной паутины World Wide Web?", "o": ["Билл Гейтс", "Тим Бернерс-Ли", "Стив Джобс", "Линус Торвальдс"], "a": 1, "e": "Тим Бернерс-Ли предложил систему WWW в CERN.", "c": "Интернет", "d": 1, "id": "q0067", "tags": ["интернет"]}, {"q": "Что означает сокращение CPU?", "o": ["Центральный процессор", "Компьютерный блок питания", "Облачное хранилище", "Графический интерфейс"], "a": 0, "e": "CPU — Central Processing Unit, центральное процессорное устройство.", "c": "Компьютеры", "d": 1, "id": "q0068", "tags": ["компьютеры"]}, {"q": "Какой язык используется для структурирования веб-страницы?", "o": ["HTML", "SQL", "Python", "C++"], "a": 0, "e": "HTML описывает структуру содержимого веб-страницы.", "c": "Интернет", "d": 1, "id": "q0069", "tags": ["интернет"]}, {"q": "Как называется вредоносная программа, маскирующаяся под полезную?", "o": ["Троян", "Компилятор", "Драйвер", "Архиватор"], "a": 0, "e": "Троянская программа выдаёт себя за полезное приложение.", "c": "Компьютеры", "d": 2, "id": "q0070", "tags": ["компьютеры"]}, {"q": "Что хранит LocalStorage в браузере?", "o": ["Только изображения", "Данные в формате ключ–значение", "Пароли операционной системы", "Файлы BIOS"], "a": 1, "e": "LocalStorage хранит строковые пары ключ–значение для конкретного сайта.", "c": "Интернет", "d": 2, "id": "q0071", "tags": ["интернет"]}, {"q": "Какой протокол обычно защищает веб-соединение шифрованием?", "o": ["HTTP", "HTTPS", "FTP", "SMTP"], "a": 1, "e": "HTTPS использует TLS для защиты передаваемых данных.", "c": "Интернет", "d": 1, "id": "q0072", "tags": ["интернет"]}, {"q": "Какая валюта используется в Японии?", "o": ["Юань", "Иена", "Вона", "Бат"], "a": 1, "e": "Национальная валюта Японии — иена.", "c": "Валюты", "d": 1, "id": "q0073", "tags": ["валюты"]}, {"q": "На флаге какой страны изображён кленовый лист?", "o": ["Канада", "Австрия", "Дания", "Перу"], "a": 0, "e": "Красный кленовый лист — центральный символ флага Канады.", "c": "Флаги", "d": 1, "id": "q0074", "tags": ["флаги"]}, {"q": "Какой язык имеет наибольшее число носителей как родного?", "o": ["Английский", "Испанский", "Мандаринский китайский", "Хинди"], "a": 2, "e": "Мандаринский китайский обычно занимает первое место по числу носителей.", "c": "Языки", "d": 2, "id": "q0075", "tags": ["языки"]}, {"q": "Как называется японское искусство складывания бумаги?", "o": ["Икебана", "Оригами", "Кабуки", "Бонсай"], "a": 1, "e": "Оригами — искусство создания фигур из бумаги.", "c": "Культура", "d": 1, "id": "q0076", "tags": ["культура"]}, {"q": "Кто в древнегреческой мифологии был богом моря?", "o": ["Арес", "Посейдон", "Гермес", "Гефест"], "a": 1, "e": "Посейдон считался богом моря.", "c": "Мифология", "d": 1, "id": "q0077", "tags": ["мифология"]}, {"q": "Как называется священная книга ислама?", "o": ["Тора", "Коран", "Веды", "Трипитака"], "a": 1, "e": "Священная книга ислама — Коран.", "c": "Религии мира", "d": 1, "id": "q0078", "tags": ["религии мира"]}];
+const NAV=[
+ ['home','⌂','nav_home'],['lessons','📚','nav_lessons'],['exams','🎓','nav_exams'],
+ ['stats','📊','nav_stats'],['achievements','🏆','nav_achievements'],['wheel','🎡','nav_wheel'],
+ ['prizes','🎁','nav_prizes'],['pricing','💳','nav_pricing'],['profile','👤','nav_profile'],
+ ['settings','⚙','nav_settings']
+];
+const LADDER=['100','200','300','500','1 000','2 000','4 000','8 000','16 000','32 000','50 000','100 000','250 000','500 000','1 000 000'];
+const defaultState={xp:0,total:0,correct:0,streak:0,bestStreak:0,bestGame:0,name:'Игрок',favorite:'История Азербайджана',registered:new Date().toISOString(),minutes:0,topics:{},mistakes:[],daily:{date:'',count:0},achievements:[],tasksCompleted:0,subscription:{plan:'Бесплатный',price:0,trialUntil:'',freeMonthUntil:'',coupon:false,active:false},accessStarted:new Date().toISOString(),paid:false,pendingPlan:null,profile:{fullName:'',phone:'',country:'',city:'',postalCode:'',address:''},wonPrizes:[],lastSpin:'',ownerSettings:{provider:'iyzico',recipientName:'',iban:'',payoutEmail:'',businessName:'Million Master',taxNumber:'',note:''}};
+let state=Object.assign({},defaultState,JSON.parse(localStorage.getItem('mm_state')||'{}'));
+let session={items:[],index:0,score:0,mode:'game',answered:false,used50:false};
+const topics=[...new Set(QUESTIONS.map(x=>x.c))].sort();
+function save(){localStorage.setItem('mm_state',JSON.stringify(state));renderAll()}
+function showPage(id){if(!hasActiveAccess()&&!['pricing','payment','trialExpired'].includes(id)){id='trialExpired'}document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===id));if(id==='stats')renderStats();if(id==='pricing')renderPricing();if(id==='payment')renderPayment();if(id==='prizes')renderPrizes();if(id==='wheel')renderWheel();if(id==='profile'){loadPrizeProfile();renderOwnerPanel()}scrollTo(0,0)}
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function sample(pool,n){let out=[],p=shuffle(pool);while(out.length<n){if(!p.length)p=shuffle(pool);out.push(p.pop())}return out}
+function level(){return Math.min(100,Math.floor(Math.sqrt(state.xp/10))+1)}
+function today(){return new Date().toISOString().slice(0,10)}
+function ensureDaily(){if(state.daily.date!==today())state.daily={date:today(),count:0}}
+function addXp(n){state.xp=Math.min(100000,state.xp+n);toast('+'+n+' XP')}
+function startMode(items,mode){if(!hasActiveAccess()){showPage('trialExpired');return}session={items,index:0,score:0,mode,answered:false,used50:false};showPage('game');renderQuestion()}
+function startGame(){let sorted=shuffle(QUESTIONS).sort((a,b)=>a.d-b.d);let items=[];for(let i=1;i<=15;i++){let target=i<6?1:i<11?2:3;let pool=sorted.filter(q=>q.d===target);items.push(pool[Math.floor(Math.random()*pool.length)])}startMode(items,'game')}
+function startLesson(topic){startMode(sample(QUESTIONS.filter(q=>q.c===topic),Math.min(15,QUESTIONS.filter(q=>q.c===topic).length)),'lesson:'+topic)}
+function startDaily(){ensureDaily();startMode(sample(QUESTIONS,20),'daily')}
+function startSmart(){let weak=state.mistakes.map(id=>QUESTIONS.find(q=>q.id===id)).filter(Boolean);let weakTopics=Object.entries(state.topics).sort((a,b)=>(a[1].correct/Math.max(1,a[1].total))-(b[1].correct/Math.max(1,b[1].total))).slice(0,3).map(x=>x[0]);let pool=[...weak,...QUESTIONS.filter(q=>weakTopics.includes(q.c))];if(pool.length<10)pool=QUESTIONS;startMode(sample(pool,15),'smart')}
+function startExam(count,label){let minD=label.includes('Миллион')?3:label.includes('100000')?2:1;startMode(sample(QUESTIONS.filter(q=>q.d>=minD),count),'exam:'+label)}
+function renderQuestion(){let q=session.items[session.index];session.answered=false;session.used50=false;document.getElementById('quizMeta').textContent=`Вопрос ${session.index+1} из ${session.items.length} • ${q.c} • сложность ${q.d}`;document.getElementById('quizProgress').style.width=((session.index)/session.items.length*100)+'%';document.getElementById('question').textContent=q.q;let box=document.getElementById('answers');box.innerHTML='';q.o.forEach((o,i)=>{let b=document.createElement('button');b.className='answer';b.innerHTML=`<b>${String.fromCharCode(65+i)}.</b> ${o}`;b.onclick=()=>answer(i,b);b.dataset.i=i;box.appendChild(b)});document.getElementById('explain').style.display='none';document.getElementById('nextBtn').style.display='none';renderMoney()}
+function answer(i,b){if(session.answered)return;session.answered=true;let q=session.items[session.index],ok=i===q.a;document.querySelectorAll('.answer').forEach((x,j)=>{if(j===q.a)x.classList.add('correct');if(j===i&&!ok)x.classList.add('wrong');x.disabled=true});document.getElementById('explain').style.display='block';document.getElementById('explain').innerHTML='<b>'+(ok?'Верно!':'Неверно.')+'</b> '+q.e;state.total++;state.topics[q.c]??={total:0,correct:0};state.topics[q.c].total++;if(ok){state.correct++;state.streak++;state.bestStreak=Math.max(state.bestStreak,state.streak);session.score++;addXp(10);if(state.streak%10===0)addXp(200)}else{state.streak=0;if(!state.mistakes.includes(q.id))state.mistakes.push(q.id)}if(session.mode==='daily'){ensureDaily();state.daily.count++}checkAchievements();save();document.getElementById('nextBtn').style.display='inline-block'}
+function nextQuestion(){if(session.index<session.items.length-1){session.index++;renderQuestion()}else finishSession()}
+function finishSession(){state.tasksCompleted=(state.tasksCompleted||0)+1;let perfect=session.score===session.items.length;if(perfect)addXp(500);if(session.mode.startsWith('lesson'))addXp(1000);if(session.mode.startsWith('exam'))addXp(3000);if(session.mode==='game')state.bestGame=Math.max(state.bestGame,session.score);save();document.getElementById('question').textContent=`Результат: ${session.score} из ${session.items.length}`;document.getElementById('answers').innerHTML='';document.getElementById('explain').style.display='block';document.getElementById('explain').innerHTML=perfect?'Без ошибок! Получен дополнительный бонус.':'Ошибочные вопросы добавлены в умное повторение.';document.getElementById('nextBtn').style.display='none';document.getElementById('quizProgress').style.width='100%'}
+function use5050(){if(session.answered||session.used50)return;session.used50=true;let q=session.items[session.index];let wrong=[0,1,2,3].filter(i=>i!==q.a);shuffle(wrong).slice(0,2).forEach(i=>document.querySelector(`.answer[data-i="${i}"]`).style.visibility='hidden')}
+function replaceQuestion(){if(session.answered)return;let current=session.items[session.index];let pool=QUESTIONS.filter(q=>q.id!==current.id&&q.d===current.d);session.items[session.index]=pool[Math.floor(Math.random()*pool.length)];renderQuestion()}
+function renderMoney(){let el=document.getElementById('money');el.innerHTML='';[...LADDER].reverse().forEach((v,ri)=>{let i=14-ri,d=document.createElement('div');if(session.mode==='game'&&i===session.index)d.className='current';d.innerHTML=`<span>${i+1}</span><b>${v} ₼</b>`;el.appendChild(d)})}
+function checkAchievements(){let defs=[['first','Первый шаг',state.total>=1],['hundred','100 ответов',state.total>=100],['streak10','10 подряд',state.bestStreak>=10],['expert','Точность 80%',state.total>=20&&state.correct/state.total>=.8],['level10','Уровень 10',level()>=10],['xp10k','10 000 XP',state.xp>=10000]];defs.forEach(([id,n,ok])=>{if(ok&&!state.achievements.includes(id)){state.achievements.push(id);toast('🏆 Достижение: '+n)}})}
+function renderAll(){ensureDaily();document.getElementById('topLevel').textContent=level();document.getElementById('topXp').textContent=state.xp.toLocaleString('ru-RU');document.getElementById('topStreak').textContent=state.streak;document.getElementById('homeXp').textContent=state.xp.toLocaleString('ru-RU')+' XP';document.getElementById('xpBar').style.width=(state.xp/1000)+'%';document.getElementById('accuracy').textContent=(state.total?Math.round(state.correct/state.total*100):0)+'%';document.getElementById('answerCount').textContent=state.total+' ответов';document.getElementById('dailyCount').textContent=state.daily.count+' / 20';document.getElementById('bestGame').textContent=state.bestGame+' / 15';document.getElementById('bankSize').textContent=QUESTIONS.length;let weak=Object.entries(state.topics).sort((a,b)=>(a[1].correct/a[1].total)-(b[1].correct/b[1].total))[0];document.getElementById('weakTopic').textContent=weak?weak[0]:'Пока нет данных';document.getElementById('nameInput').value=state.name;document.getElementById('avatar').textContent=(state.name||'M')[0].toUpperCase();document.getElementById('favTopic').value=state.favorite;document.getElementById('profileFacts').innerHTML=`Уровень: <b>${level()}</b><br>Регистрация: <b>${new Date(state.registered).toLocaleDateString('ru-RU')}</b><br>Лучшая серия: <b>${state.bestStreak}</b>`;renderAchievements()}
+function renderLessons(){let el=document.getElementById('lessonList');el.innerHTML='';topics.forEach((t,i)=>{let s=state.topics[t]||{total:0,correct:0};let pct=s.total?Math.round(s.correct/s.total*100):0;let d=document.createElement('div');d.className='lesson glass';d.onclick=()=>startLesson(t);d.innerHTML=`<div class="row"><h3>${i+1}. ${t}</h3><span class="badge">+1000 XP</span></div><div class="muted">${QUESTIONS.filter(q=>q.c===t).length} вопросов в текущей базе</div><div class="progress" style="margin-top:12px"><div style="width:${pct}%"></div></div><div class="muted" style="margin-top:7px">Освоение: ${pct}%</div>`;el.appendChild(d)})}
+function renderExams(){let cfg=[['Экзамен 16000',20],['Экзамен 32000',25],['Экзамен 50000',30],['Экзамен 100000',40],['Экзамен Миллион',50]];document.getElementById('examGrid').innerHTML=cfg.map(([n,c])=>`<div class="card glass"><h3>${n}</h3><p class="muted">${c} случайных вопросов. Награда: 3000 XP.</p><button class="btn" onclick="startExam(${c},'${n}')">Начать</button></div>`).join('')}
+function renderStats(){document.getElementById('statCorrect').textContent=state.correct;document.getElementById('statWrong').textContent=state.total-state.correct;document.getElementById('statTime').textContent=state.minutes+' мин';let el=document.getElementById('topicStats');el.innerHTML=topics.map(t=>{let s=state.topics[t]||{total:0,correct:0};let p=s.total?Math.round(s.correct/s.total*100):0;return `<div style="margin:12px 0"><div style="display:flex;justify-content:space-between"><span>${t}</span><b>${p}%</b></div><div class="progress"><div style="width:${p}%"></div></div></div>`}).join('')}
+const ACH=[['first','Первый шаг','Ответить на первый вопрос'],['hundred','Сотня','Ответить на 100 вопросов'],['streak10','Без остановки','10 правильных подряд'],['expert','Точный ум','Точность не ниже 80%'],['level10','Ученик мастера','Достичь 10 уровня'],['xp10k','Большой путь','Набрать 10 000 XP']];
+function renderAchievements(){document.getElementById('achievementGrid').innerHTML=ACH.map(([id,n,d])=>`<div class="card glass achievement ${state.achievements.includes(id)?'unlocked':''}"><div class="metric">🏆</div><h3>${n}</h3><div class="muted">${d}</div></div>`).join('')}
+function saveProfile(){state.name=document.getElementById('nameInput').value.trim()||'Игрок';state.favorite=document.getElementById('favTopic').value;save();toast('Профиль сохранён')}
+function applySettings(){document.documentElement.style.fontSize=document.getElementById('fontSize').value+'px';document.body.style.scrollBehavior=document.getElementById('animations').checked?'smooth':'auto'}
+function resetProgress(){if(confirm('Удалить весь прогресс?')){state=JSON.parse(JSON.stringify(defaultState));state.registered=new Date().toISOString();save()}}
+
+function datePlus(days){let d=new Date();d.setDate(d.getDate()+days);return d.toISOString()}
+function choosePlan(plan,price){
+ if(price===0){
+   if(freeAccessExpired()){toast('Бесплатный тариф больше недоступен');showPage('pricing');return}
+   state.subscription={plan:'Бесплатный',price:0,trialUntil:freeTrialEnd().toISOString(),freeMonthUntil:'',coupon:false,active:true};
+   state.paid=false;save();renderPricing();toast('Активирован бесплатный доступ')
+   return
+ }
+ state.pendingPlan={plan,price};
+ renderPayment();
+ showPage('payment')
+}
+
+function freeTrialEnd(){let d=new Date(state.accessStarted||new Date().toISOString());d.setDate(d.getDate()+7);return d}
+function freeAccessExpired(){return !state.paid && new Date()>freeTrialEnd()}
+function daysLeft(){return Math.max(0,Math.ceil((freeTrialEnd()-new Date())/86400000))}
+function hasActiveAccess(){return state.paid||!freeAccessExpired()}
+function enforceAccess(){
+ if(hasActiveAccess())return true;
+ let allowed=['pricing','payment','trialExpired'];
+ document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+ document.getElementById('trialExpired').classList.add('active');
+ return false
+}
+function renderPayment(){
+ let pp=state.pendingPlan||{plan:'Не выбран',price:0};
+ let finalPrice=state.subscription&&state.subscription.coupon?pp.price/2:pp.price;
+ document.getElementById('paymentSummary').innerHTML=`Тариф: <b>${pp.plan}</b><br>Первый месяц: <b>$0</b><br>Далее: <b>$${finalPrice.toFixed(2)} в месяц</b>${state.subscription&&state.subscription.coupon?'<br>Купон 50% применён':''}`;
+}
+function formatCard(el){el.value=el.value.replace(/\D/g,'').slice(0,16).replace(/(.{4})/g,'$1 ').trim()}
+function formatExpiry(el){let v=el.value.replace(/\D/g,'').slice(0,4);el.value=v.length>2?v.slice(0,2)+'/'+v.slice(2):v}
+function completeDemoPayment(){
+ let name=document.getElementById('cardName').value.trim();
+ let num=document.getElementById('cardNumber').value.replace(/\s/g,'');
+ let exp=document.getElementById('cardExpiry').value.trim();
+ let cvv=document.getElementById('cardCvv').value.trim();
+ let email=document.getElementById('billingEmail').value.trim();
+ if(!name||num.length!==16||!/^\d{2}\/\d{2}$/.test(exp)||cvv.length<3||!email.includes('@')){toast('Проверьте данные формы');return}
+ let pp=state.pendingPlan;if(!pp){toast('Тариф не выбран');return}
+ let discounted=state.subscription&&state.subscription.coupon;
+ state.subscription={plan:pp.plan,price:pp.price,trialUntil:datePlus(7),freeMonthUntil:datePlus(30),coupon:!!discounted,active:true};
+ state.paid=true;state.pendingPlan=null;
+ document.getElementById('cardNumber').value='';document.getElementById('cardCvv').value='';
+ save();toast('Подписка активирована в демонстрационном режиме');showPage('home')
+}
+const PRIZES=[
+ ['iphone','📱','iPhone','50 000 XP',50000],
+ ['macbook','💻','MacBook','75 000 XP',75000],
+ ['imac','🖥️','iMac','100 000 XP',100000],
+ ['airpods','🎧','AirPods','20 000 XP',20000],
+ ['ipad','📲','iPad','60 000 XP',60000],
+ ['watch','⌚','Apple Watch','35 000 XP',35000],
+ ['console','🎮','Игровая консоль','45 000 XP',45000],
+ ['voucher','🎟️','Подарочный сертификат','10 000 XP',10000]
+];
+function renderPrizes(){
+ let el=document.getElementById('prizeGrid');
+ el.innerHTML=PRIZES.map(([id,icon,name,need,xp])=>`<div class="prize glass ${state.xp>=xp?'':'locked'}"><div class="prize-icon">${icon}</div><h3>${name}</h3><div class="muted">${need}</div><div style="margin-top:10px">${state.xp>=xp?'<span class="badge">Открыто</span>':'<span class="muted">Закрыто</span>'}</div></div>`).join('')
+}
+
+function applyCoupon(){
+ let code=(document.getElementById('couponInput').value||'').trim().toLowerCase();
+ let unlocked=(state.tasksCompleted||0)>=100;
+ let result=document.getElementById('couponResult');
+ if(!unlocked){result.textContent='Купон пока закрыт. Выполнено '+(state.tasksCompleted||0)+' из 100 заданий.';return}
+ if(code==='xmillionmaster20200'){
+   state.subscription=state.subscription||{};
+   state.subscription.coupon=true;
+   result.textContent='Купон применён: скидка 50% на выбранный платный тариф.';
+   toast('Купон активирован — скидка 50%');save();renderPricing()
+ }else result.textContent='Купон не найден. Проверьте написание.'
+}
+function renderPricing(){
+ let s=state.subscription||{plan:'Бесплатный',price:0};
+ let price=s.price||0, discounted=s.coupon?price/2:price;
+ let free=s.freeMonthUntil?new Date(s.freeMonthUntil):null;
+ let trial=s.trialUntil?new Date(s.trialUntil):null;
+ let lines=`Текущий тариф: <b>${s.plan||'Бесплатный'}</b>`; if(!state.paid) lines+=` • Бесплатный доступ: <b>${daysLeft()} дн.</b>`;
+ if(price>0) lines+=` • После бесплатного месяца: <b>$${discounted.toFixed(2)}/месяц</b>`;
+ if(s.coupon) lines+=' • Купон 50% активен';
+ if(free) lines+=`<br><span class="muted">Первый бесплатный месяц до ${free.toLocaleDateString('ru-RU')}. Пробный период 7 дней до ${trial.toLocaleDateString('ru-RU')}.</span>`;
+ document.getElementById('subscriptionStatus').innerHTML=lines;
+ let done=state.tasksCompleted||0,p=Math.min(100,done);
+ document.getElementById('couponProgress').innerHTML=`<div style="display:flex;justify-content:space-between"><span>Выполнено заданий</span><b>${done} / 100</b></div><div class="progress"><div style="width:${p}%"></div></div>`;
+ document.getElementById('couponInput').disabled=done<100;
+ document.getElementById('couponResult').textContent=done>=100?'Купон разблокирован. Введите его ниже.':'До разблокировки осталось '+(100-done)+' заданий.'; let fp=document.getElementById('freePlanCard'); if(fp) fp.style.display=freeAccessExpired()?'none':'block';
+}
+function toggleAssistant(){document.getElementById('assistantPanel').classList.toggle('open')}
+
+const WHEEL_PRIZES=[
+ 'iPhone','MacBook','iMac','AirPods','iPad','Apple Watch',
+ 'Сертификат $10','Сертификат $20','Сертификат $25','Сертификат $30',
+ 'Сертификат $50','Сертификат $75','Сертификат $100','Сертификат $150',
+ 'Сертификат $200','Сертификат $250','Игровая консоль','Подарочный набор'
+];
+function eligibleForWheel(){
+ let p=(state.subscription&&state.subscription.plan)||'Бесплатный';
+ return ['Премиум','Plus','Pro'].includes(p) && !!state.paid
+}
+function prizeProfileComplete(){
+ let p=state.profile||{};
+ return ['fullName','phone','country','city','postalCode','address'].every(k=>String(p[k]||'').trim().length>1)
+}
+function loadPrizeProfile(){
+ let p=state.profile||{};
+ let map={profileFullName:'fullName',profilePhone:'phone',profileCountry:'country',profileCity:'city',profilePostalCode:'postalCode',profileAddress:'address'};
+ Object.entries(map).forEach(([id,key])=>{let el=document.getElementById(id);if(el)el.value=p[key]||''});
+ let st=document.getElementById('profileAddressStatus');if(st)st.textContent=prizeProfileComplete()?'✅ Адрес заполнен. Вы можете получать призы.':'Заполните все поля для доставки призов.'
+}
+function savePrizeProfile(){
+ state.profile={
+  fullName:document.getElementById('profileFullName').value.trim(),
+  phone:document.getElementById('profilePhone').value.trim(),
+  country:document.getElementById('profileCountry').value.trim(),
+  city:document.getElementById('profileCity').value.trim(),
+  postalCode:document.getElementById('profilePostalCode').value.trim(),
+  address:document.getElementById('profileAddress').value.trim()
+ };
+ save();loadPrizeProfile();
+ toast(prizeProfileComplete()?'Адрес сохранён':'Заполните все обязательные поля')
+}
+function renderWheel(){
+ let eligible=eligibleForWheel(),profileOk=prizeProfileComplete();
+ let box=document.getElementById('wheelEligibility'),btn=document.getElementById('spinButton');
+ if(!box||!btn)return;
+ if(!eligible){
+  box.innerHTML='🔒 Вертушка недоступна для текущего тарифа. Нужен <b>Премиум, Plus или Pro</b>. Обычный и Бесплатный тарифы не участвуют.';
+  btn.disabled=true
+ }else if(!profileOk){
+  box.innerHTML='📦 Тариф подходит, но сначала заполните обязательный адрес в разделе <b data-i18n="nav_profile">Профиль</b>.';
+  btn.disabled=true
+ }else{
+  box.innerHTML='✅ Участие доступно. Ваш тариф: <b>'+state.subscription.plan+'</b>. Адрес доставки заполнен.';
+  btn.disabled=false
+ }
+}
+let wheelBusy=false,wheelRotation=0;
+function spinPrizeWheel(){
+ if(wheelBusy)return;
+ if(!eligibleForWheel()){toast('Нужен тариф Премиум, Plus или Pro');return}
+ if(!prizeProfileComplete()){toast('Сначала заполните адрес в профиле');showPage('profile');return}
+ wheelBusy=true;
+ let index=Math.floor(Math.random()*WHEEL_PRIZES.length);
+ let sector=360/WHEEL_PRIZES.length;
+ wheelRotation += 1440 + (360 - (index*sector + sector/2));
+ let wheel=document.getElementById('prizeWheel');
+ wheel.style.transform=`rotate(${wheelRotation}deg)`;
+ document.getElementById('spinButton').disabled=true;
+ setTimeout(()=>{
+   let prize=WHEEL_PRIZES[index];
+   state.wonPrizes=state.wonPrizes||[];
+   state.wonPrizes.push({prize,date:new Date().toISOString(),status:'Ожидает подтверждения'});
+   state.lastSpin=new Date().toISOString();
+   save();
+   let result=document.getElementById('wheelResult');
+   result.classList.remove('winner-pop');void result.offsetWidth;result.classList.add('winner-pop');
+   result.innerHTML=`<div class="metric">🎉</div><h3>Ваш приз: ${prize}</h3><p class="muted">Результат сохранён в профиле. Для реальной отправки потребуется подтверждение администратора.</p>`;
+   wheelBusy=false;document.getElementById('spinButton').disabled=false;renderWheel()
+ },4900)
+}
+
+
+
+const TRANSLATIONS={
+ ru:{
+  nav_wheel:'Вертушка',nav_settings:'Настройки',language_label:'🌐 Язык',
+  nav_home:'Главная',nav_lessons:'Уроки',nav_game:'Игра',nav_exams:'Экзамены',nav_stats:'Статистика',
+  nav_profile:'Профиль',nav_achievements:'Достижения',nav_prizes:'Призы',nav_pricing:'Тарифы',
+  wheel_title:'Случайная вертушка призов',spin_button:'Вращать колесо',payment_title:'Оформление подписки',
+  confirm_subscription:'Подтвердить подписку',back:'Назад',owner_access:'Доступ владельца',
+  open_panel:'Открыть панель',owner_panel:'Панель владельца',save_payout:'Сохранить настройки выплат',
+  close_panel:'Закрыть панель',save_address:'Сохранить адрес',choose_plan:'Выбрать тариф'
+ },
+ az:{
+  nav_wheel:'Çarx',nav_settings:'Ayarlar',language_label:'🌐 Dil',
+  nav_home:'Ana səhifə',nav_lessons:'Dərslər',nav_game:'Oyun',nav_exams:'İmtahanlar',nav_stats:'Statistika',
+  nav_profile:'Profil',nav_achievements:'Nailiyyətlər',nav_prizes:'Mükafatlar',nav_pricing:'Tariflər',
+  wheel_title:'Təsadüfi mükafat çarxı',spin_button:'Çarxı fırlat',payment_title:'Abunəliyin rəsmiləşdirilməsi',
+  confirm_subscription:'Abunəliyi təsdiqlə',back:'Geri',owner_access:'Sahib girişi',
+  open_panel:'Paneli aç',owner_panel:'Sahib paneli',save_payout:'Ödəniş ayarlarını saxla',
+  close_panel:'Paneli bağla',save_address:'Ünvanı saxla',choose_plan:'Tarif seç'
+ },
+ tr:{
+  nav_wheel:'Ödül Çarkı',nav_settings:'Ayarlar',language_label:'🌐 Dil',
+  nav_home:'Ana Sayfa',nav_lessons:'Dersler',nav_game:'Oyun',nav_exams:'Sınavlar',nav_stats:'İstatistikler',
+  nav_profile:'Profil',nav_achievements:'Başarılar',nav_prizes:'Ödüller',nav_pricing:'Paketler',
+  wheel_title:'Rastgele Ödül Çarkı',spin_button:'Çarkı Çevir',payment_title:'Abonelik İşlemi',
+  confirm_subscription:'Aboneliği Onayla',back:'Geri',owner_access:'Sahip Erişimi',
+  open_panel:'Paneli Aç',owner_panel:'Sahip Paneli',save_payout:'Ödeme Ayarlarını Kaydet',
+  close_panel:'Paneli Kapat',save_address:'Adresi Kaydet',choose_plan:'Paket Seç'
+ },
+ en:{
+  nav_wheel:'Prize Wheel',nav_settings:'Settings',language_label:'🌐 Language',
+  nav_home:'Home',nav_lessons:'Lessons',nav_game:'Game',nav_exams:'Exams',nav_stats:'Statistics',
+  nav_profile:'Profile',nav_achievements:'Achievements',nav_prizes:'Prizes',nav_pricing:'Plans',
+  wheel_title:'Random Prize Wheel',spin_button:'Spin the Wheel',payment_title:'Subscription Checkout',
+  confirm_subscription:'Confirm Subscription',back:'Back',owner_access:'Owner Access',
+  open_panel:'Open Panel',owner_panel:'Owner Panel',save_payout:'Save Payout Settings',
+  close_panel:'Close Panel',save_address:'Save Address',choose_plan:'Choose Plan'
+ },
+ de:{
+  nav_wheel:'Glücksrad',nav_settings:'Einstellungen',language_label:'🌐 Sprache',
+  nav_home:'Startseite',nav_lessons:'Lektionen',nav_game:'Spiel',nav_exams:'Prüfungen',nav_stats:'Statistik',
+  nav_profile:'Profil',nav_achievements:'Erfolge',nav_prizes:'Preise',nav_pricing:'Tarife',
+  wheel_title:'Zufälliges Glücksrad',spin_button:'Rad drehen',payment_title:'Abonnement abschließen',
+  confirm_subscription:'Abonnement bestätigen',back:'Zurück',owner_access:'Inhaberzugang',
+  open_panel:'Panel öffnen',owner_panel:'Inhaberbereich',save_payout:'Auszahlung speichern',
+  close_panel:'Panel schließen',save_address:'Adresse speichern',choose_plan:'Tarif wählen'
+ },
+ es:{
+  nav_wheel:'Ruleta',nav_settings:'Configuración',language_label:'🌐 Idioma',
+  nav_home:'Inicio',nav_lessons:'Lecciones',nav_game:'Juego',nav_exams:'Exámenes',nav_stats:'Estadísticas',
+  nav_profile:'Perfil',nav_achievements:'Logros',nav_prizes:'Premios',nav_pricing:'Planes',
+  wheel_title:'Ruleta aleatoria de premios',spin_button:'Girar la ruleta',payment_title:'Pago de suscripción',
+  confirm_subscription:'Confirmar suscripción',back:'Atrás',owner_access:'Acceso del propietario',
+  open_panel:'Abrir panel',owner_panel:'Panel del propietario',save_payout:'Guardar configuración de pagos',
+  close_panel:'Cerrar panel',save_address:'Guardar dirección',choose_plan:'Elegir plan'
+ }
+};
+function renderNav(){
+ const lang=localStorage.getItem('mm_language')||'ru';
+ const dict=TRANSLATIONS[lang]||TRANSLATIONS.ru;
+ const nav=document.getElementById('nav');
+ if(!nav)return;
+ nav.innerHTML=NAV.map(([id,icon,key])=>
+  `<button data-page="${id}" onclick="showPage('${id}')"><span>${icon}</span> ${dict[key]||TRANSLATIONS.ru[key]||key}</button>`
+ ).join('');
+ const active=document.querySelector('.page.active');
+ if(active){
+  const button=nav.querySelector(`[data-page="${active.id}"]`);
+  if(button)button.classList.add('active');
+ }
+}
+function setLanguage(lang){
+ if(!TRANSLATIONS[lang])lang='ru';
+ localStorage.setItem('mm_language',lang);
+ document.documentElement.lang=lang;
+ document.querySelectorAll('[data-i18n]').forEach(el=>{
+  const key=el.getAttribute('data-i18n');
+  const value=TRANSLATIONS[lang][key]||TRANSLATIONS.ru[key];
+  if(value)el.textContent=value;
+ });
+ const select=document.getElementById('languageSelect');
+ if(select&&select.value!==lang)select.value=lang;
+ const settingsSelect=document.getElementById('settingsLanguageSelect');
+ if(settingsSelect&&settingsSelect.value!==lang)settingsSelect.value=lang;
+ renderNav();
+}
+function initLanguage(){
+ const saved=localStorage.getItem('mm_language')||'ru';
+ setLanguage(saved);
+}
+
+async function unlockOwnerPanel(){
+ const code=(document.getElementById('ownerCodeInput').value||'').trim();
+ const st=document.getElementById('ownerCodeStatus');
+ if(!code){st.textContent='Введите код владельца.';return}
+ try{
+  const response=await fetch('/api/owner/login',{
+   method:'POST',headers:{'Content-Type':'application/json'},credentials:'include',
+   body:JSON.stringify({password:code})
+  });
+  const data=await response.json();
+  if(!response.ok){st.textContent=data.error||'Неверный код владельца.';return}
+  document.getElementById('ownerPanel').classList.add('open');
+  st.textContent='✅ Серверная авторизация выполнена.';
+  await renderOwnerPanel();
+ }catch(e){st.textContent='Сервер недоступен. Запустите сайт через npm start.'}
+}
+async function lockOwnerPanel(){
+ try{await fetch('/api/owner/logout',{method:'POST',credentials:'include'})}catch(e){}
+ document.getElementById('ownerPanel').classList.remove('open');
+ document.getElementById('ownerCodeInput').value='';
+ document.getElementById('ownerCodeStatus').textContent='Панель закрыта.'
+}
+async function renderOwnerPanel(){
+ const panel=document.getElementById('ownerPanel');if(!panel)return;
+ try{
+  const response=await fetch('/api/owner/dashboard',{credentials:'include'});
+  if(response.status===401){panel.classList.remove('open');return}
+  const data=await response.json();
+  panel.classList.add('open');
+  const s=data.payoutSettings||{};
+  const map={ownerProvider:'provider',ownerRecipientName:'recipientName',ownerIban:'iban',ownerPayoutEmail:'payoutEmail',ownerBusinessName:'businessName',ownerTaxNumber:'taxNumber',ownerPayoutNote:'note'};
+  Object.entries(map).forEach(([id,key])=>{const el=document.getElementById(id);if(el)el.value=s[key]||''});
+  const set=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val};
+  set('ownerClientPlan',data.stats.activePlan||'Нет данных');
+  set('ownerClientXp',data.stats.totalXp||0);
+  set('ownerTasks',data.stats.completedTasks||0);
+  set('ownerWins',data.stats.prizeWins||0);
+ }catch(e){document.getElementById('ownerCodeStatus').textContent='Не удалось получить данные сервера.'}
+}
+function maskIban(v){
+ const x=String(v||'').replace(/\s/g,'');
+ if(x.length<8)return x;
+ return x.slice(0,4)+' •••• •••• '+x.slice(-4)
+}
+async function saveOwnerSettings(){
+ const payload={
+  provider:document.getElementById('ownerProvider').value,
+  recipientName:document.getElementById('ownerRecipientName').value.trim(),
+  iban:document.getElementById('ownerIban').value.trim(),
+  payoutEmail:document.getElementById('ownerPayoutEmail').value.trim(),
+  businessName:document.getElementById('ownerBusinessName').value.trim(),
+  taxNumber:document.getElementById('ownerTaxNumber').value.trim(),
+  note:document.getElementById('ownerPayoutNote').value.trim()
+ };
+ try{
+  const response=await fetch('/api/owner/payout-settings',{
+   method:'PUT',headers:{'Content-Type':'application/json'},credentials:'include',body:JSON.stringify(payload)
+  });
+  const data=await response.json();
+  if(!response.ok){toast(data.error||'Ошибка сохранения');return}
+  document.getElementById('ownerSaveStatus').textContent=`Сохранено на сервере. Получатель: ${payload.recipientName||'не указан'}, счёт: ${maskIban(payload.iban)||'не указан'}.`;
+  toast('Настройки владельца сохранены на сервере')
+ }catch(e){toast('Сервер недоступен')}
+}
+
+function assistantReply(text){
+ let t=text.toLowerCase(),weak=Object.entries(state.topics||{}).sort((a,b)=>(a[1].correct/Math.max(1,a[1].total))-(b[1].correct/Math.max(1,b[1].total)))[0];
+ if(t.includes('слаб')||t.includes('учить')||t.includes('тема')) return weak?`Сейчас слабее всего тема «${weak[0]}». Рекомендую открыть её урок и затем пройти умную тренировку.`:'Сначала пройдите 2–3 урока. После этого я определю вашу слабую тему.';
+ if(t.includes('ошиб')) return state.mistakes.length?`В умном повторении сохранено ${state.mistakes.length} ошибочных вопросов. Нажмите «Умная тренировка» на главной.`:'Ошибок пока не сохранено. Отличное начало!';
+ if(t.includes('тариф')||t.includes('цена')) return `Доступны Бесплатный, Обычный за $5, Премиум за $10, Plus за $20 и Pro за $50 в месяц. У платных тарифов первый месяц бесплатный.`;
+ if(t.includes('купон')) return (state.tasksCompleted||0)>=100?'Купон XMillionMaster20200 уже разблокирован и даёт скидку 50%.':`Для купона нужно выполнить 100 заданий. Сейчас выполнено ${state.tasksCompleted||0}.`;
+ if(t.includes('верт')||t.includes('приз')) return eligibleForWheel()?(prizeProfileComplete()?'Вертушка доступна. Откройте раздел «Вертушка» и нажмите вращение.':'Сначала заполните адрес в профиле.'):'Вертушка доступна только на тарифах Премиум, Plus и Pro.';
+ if(t.includes('экзам')) return 'Начните с экзамена 16000. При результате ниже 80% вернитесь к слабым темам и повторите ошибки.';
+ if(t.includes('игр')||t.includes('трен')) return 'Для быстрой подготовки используйте игровой режим на 15 вопросов. Для устранения пробелов — умную тренировку.';
+ return 'Я могу подсказать слабую тему, объяснить систему тарифов, купон, экзамены или предложить подходящую тренировку.';
+}
+function sendAssistant(){
+ let input=document.getElementById('assistantInput'),text=input.value.trim();if(!text)return;
+ let box=document.getElementById('assistantMessages');
+ let u=document.createElement('div');u.className='msg user';u.textContent=text;box.appendChild(u);
+ input.value='';
+ setTimeout(()=>{let b=document.createElement('div');b.className='msg bot';b.textContent=assistantReply(text);box.appendChild(b);box.scrollTop=box.scrollHeight},180);
+ box.scrollTop=box.scrollHeight
+}
+
+function toast(t){let x=document.getElementById('toast');x.textContent=t;x.style.display='block';clearTimeout(window.tt);window.tt=setTimeout(()=>x.style.display='none',2200)}
+document.getElementById('favTopic').innerHTML=topics.map(t=>`<option>${t}</option>`).join('');
+initLanguage();renderLessons();renderExams();renderAll();renderPricing();renderPrizes();loadPrizeProfile();renderWheel();renderOwnerPanel();if(!hasActiveAccess())showPage('trialExpired');setInterval(()=>{state.minutes++;localStorage.setItem('mm_state',JSON.stringify(state))},60000);
+</script>
+</body></html>
